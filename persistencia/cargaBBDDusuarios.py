@@ -1,6 +1,5 @@
 # Instalar sqlite3 de la pagina oficial: https://www.sqlite.org/download.html
 #Instalar sqlitebrowser de la página oficial: https://sqlitebrowser.org/dl/ para poder ver las bases de datos
-
 import sqlite3
 import os
 
