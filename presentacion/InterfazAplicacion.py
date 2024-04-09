@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter import PhotoImage, messagebox
 from tkinter.ttk import Combobox
 from dominio.login import Login
+from dominio.registro import Registro
 import webbrowser
 import re
 
@@ -111,11 +112,14 @@ class InterfazAplicacion:
         #Definición frame Registrar
         self.frameRegistrar = Frame(bg='#81C2AE', highlightbackground="white", highlightcolor="white", highlightthickness=2, height=920, width=850)
         self.frameRegistrar.place(x=0, y=0)
-        self.frameRegistrarDatos = Frame(self.frameRegistrar, bg='#81C2AE', highlightbackground="white", highlightcolor="white", highlightthickness=2, width=550, height=660)
+        self.frameRegistrarDatos = Frame(self.frameRegistrar, bg='#81C2AE', highlightbackground="white", highlightcolor="white", highlightthickness=2, width=550, height=570)
         self.frameRegistrarDatos.place(x=130, y=40)
+
         #botones del registrar
-        self.botonRegistro = Button(self.frameRegistrarDatos, text="Registro", fg="black", width=25)#, command=self.registrar_nuevo_usuario)
-        self.botonRegistro.place(x=315 ,y=570)
+        self.botonRegistro = Button(self.frameRegistrar, text="Registro", fg="black", width=25, command=self.registrarUsuario)
+        self.botonRegistro.place(x=180 ,y=670)
+        self.botonVolver = Button(self.frameRegistrar, text="Volver", fg="black", width=25, command=self.initMenuLogin)
+        self.botonVolver.place(x=450 ,y=670)
         
         #labels del registrar
         self.lblDatos = Label(self.frameRegistrarDatos, text="Datos", font=("Comic Sans",20), fg="white", background="#81C2AE")
@@ -185,3 +189,33 @@ class InterfazAplicacion:
             messagebox.showerror("Autenticación fallida", "¡Autenticación fallida!")
             # Limpiar el contenido del campo de contraseña si la autenticación falla
             self.txtContrasena.delete(0, END)
+
+    def registrarUsuario(self):
+        usuario = self.txtLoginRegistro.get()
+        contrasena = self.txtContrasenaRegistro.get()
+        nombre = self.txtNombre.get()
+        apellido = self.txtApellido.get()
+        dni = self.txtDNI.get()
+        telefono = self.txtTelefono.get()
+        registro = Registro()
+        # Verificar si algún campo está vacío
+        if not (usuario and contrasena and nombre and apellido and dni and telefono):
+            messagebox.showerror("Campos incompletos", "Debes completar todos los campos")
+            return
+        exito, mensaje = registro.registrar_usuario(dni, usuario, contrasena, nombre, apellido, telefono)
+        if exito:
+            messagebox.showinfo("Registro exitoso", mensaje)
+            self.initMenuLogin()
+        else:
+            messagebox.showerror("Registro fallido", mensaje)
+            # Limpiar el contenido del campo de contraseña si el registro falla
+            self.limpiarCamposRegistro()
+
+    def limpiarCamposRegistro(self):
+        self.txtLoginRegistro.delete(0, END)
+        self.txtContrasenaRegistro.delete(0, END)
+        self.txtNombre.delete(0, END)
+        self.txtApellido.delete(0, END)
+        self.txtDNI.delete(0, END)
+        self.txtTelefono.delete(0, END)
+
