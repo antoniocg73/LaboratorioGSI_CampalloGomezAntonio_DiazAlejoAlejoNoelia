@@ -3,3 +3,5 @@ persistencia/__pycache__/cargarBBDDRespuestas.cpython-311.pyc
 persistencia/__pycache__/cargarBBDDNotas.cpython-311.pyc
 persistencia/__pycache__/cargaBBDDUsuarios.cpython-311.pyc
 dominio/__pycache__/registro.cpython-311.pyc
+dominio/__pycache__/login.cpython-311.pyc
+dominio/__pycache__/perfil.cpython-311.pyc

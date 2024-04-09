@@ -3,6 +3,7 @@ from tkinter import PhotoImage, messagebox
 from tkinter.ttk import Combobox
 from dominio.login import Login
 from dominio.registro import Registro
+from dominio.perfil import Perfil
 import webbrowser
 import re
 
@@ -143,14 +144,14 @@ class InterfazAplicacion:
         self.txtLoginRegistro.place(x=130 ,y=100)
         self.txtContrasenaRegistro=Entry(self.frameRegistrarDatos, justify=LEFT, width=33, font=('Comic Sans', 14))
         self.txtContrasenaRegistro.place(x=130 ,y=180)
-        self.txtNombre=Entry(self.frameRegistrarDatos, justify=LEFT, width=33, font=('Comic Sans', 14))
-        self.txtNombre.place(x=130 ,y=260)
-        self.txtApellido=Entry(self.frameRegistrarDatos, justify=LEFT, width=33, font=('Comic Sans', 14))
-        self.txtApellido.place(x=130 ,y=340)
-        self.txtDNI=Entry(self.frameRegistrarDatos, justify=LEFT, width=33, font=('Comic Sans', 14))
-        self.txtDNI.place(x=130 ,y=420)
-        self.txtTelefono=Entry(self.frameRegistrarDatos, justify=LEFT, width=33, font=('Comic Sans', 14))
-        self.txtTelefono.place(x=130 ,y=500)
+        self.txtNombreRegistro=Entry(self.frameRegistrarDatos, justify=LEFT, width=33, font=('Comic Sans', 14))
+        self.txtNombreRegistro.place(x=130 ,y=260)
+        self.txtApellidoRegistro=Entry(self.frameRegistrarDatos, justify=LEFT, width=33, font=('Comic Sans', 14))
+        self.txtApellidoRegistro.place(x=130 ,y=340)
+        self.txtDNIRegistro=Entry(self.frameRegistrarDatos, justify=LEFT, width=33, font=('Comic Sans', 14))
+        self.txtDNIRegistro.place(x=130 ,y=420)
+        self.txtTelefonoRegistro=Entry(self.frameRegistrarDatos, justify=LEFT, width=33, font=('Comic Sans', 14))
+        self.txtTelefonoRegistro.place(x=130 ,y=500)
 
 
 
@@ -173,6 +174,35 @@ class InterfazAplicacion:
         self.frameLogin.place_forget()
         self.frameRegistrar.place_forget()
 
+        # Crear una instancia de la clase Perfil
+        perfil = Perfil()
+
+        # Obtener los datos del usuario
+        datos_usuario = perfil.obtener_datos(self.txtLogin.get())
+        print(datos_usuario)
+        # Verificar si se obtuvieron datos del usuario
+        if datos_usuario:
+            # Establecer los datos en los Entry correspondientes
+            self.txtNombre.delete(0, END)
+            self.txtNombre.insert(0, datos_usuario[0])
+            self.txtNombre.config(state='disabled')
+
+            self.txtApellido.delete(0, END)
+            self.txtApellido.insert(0, datos_usuario[1])
+            self.txtApellido.config(state='disabled')
+
+            self.txtDNI.delete(0, END)
+            self.txtDNI.insert(0, datos_usuario[3])
+            self.txtDNI.config(state='disabled')
+
+            self.txtTelefono.delete(0, END)
+            self.txtTelefono.insert(0, datos_usuario[2])
+            self.txtTelefono.config(state='disabled')
+        else:
+            # Si no se encuentran datos del usuario, mostrar un mensaje de error
+            messagebox.showerror("Error", "No se encontraron datos del usuario.")
+            
+
     def initMenuRegistrar(self):
         self.frameRegistrar.place(x=0, y=0)
         self.framePerfil.place_forget()
@@ -193,10 +223,10 @@ class InterfazAplicacion:
     def registrarUsuario(self):
         usuario = self.txtLoginRegistro.get()
         contrasena = self.txtContrasenaRegistro.get()
-        nombre = self.txtNombre.get()
-        apellido = self.txtApellido.get()
-        dni = self.txtDNI.get()
-        telefono = self.txtTelefono.get()
+        nombre = self.txtNombreRegistro.get()
+        apellido = self.txtApellidoRegistro.get()
+        dni = self.txtDNIRegistro.get()
+        telefono = self.txtTelefonoRegistro.get()
         registro = Registro()
         # Verificar si algún campo está vacío
         if not (usuario and contrasena and nombre and apellido and dni and telefono):
