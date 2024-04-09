@@ -16,6 +16,23 @@ class Perfil:
             return None
         finally:
             self.conn.close()
+
+    def cambiar_contrasena(self, usuario, contrasena_antigua, contrasena_nueva):
+        try:
+            # Verificar si la contraseña antigua es correcta para el usuario
+            self.cursor.execute('SELECT * FROM Usuarios WHERE username=? AND password=?', (usuario, contrasena_antigua))
+            resultado = self.cursor.fetchone()
+            if resultado:
+                # Actualizar la contraseña del usuario en la base de datos
+                self.cursor.execute('UPDATE Usuarios SET password=? WHERE username=?', (contrasena_nueva, usuario))
+                self.conn.commit()
+                return True, "Contraseña cambiada exitosamente."
+            else:
+                return False, "La contraseña antigua es incorrecta."
+        except Exception as e:
+            return False, f"No se pudo cambiar la contraseña: {e}"
+        finally:
+            self.conn.close()
     '''    
     def cambiar_contrasena(self, usuario, contrasena):
         try:
