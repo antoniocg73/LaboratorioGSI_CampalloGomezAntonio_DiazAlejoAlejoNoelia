@@ -241,7 +241,7 @@ class InterfazAplicacion:
             self.limpiarCamposRegistro()
 
     def initMenuCambiarContrasena(self):
-        cambiarContrasena = InterfazCambiarContrasena(self.txtLogin.get())
+        InterfazCambiarContrasena(self.txtLogin.get())
         self.txtNombre.config(state='normal')
         self.txtApellido.config(state='normal')
         self.txtDNI.config(state='normal')
