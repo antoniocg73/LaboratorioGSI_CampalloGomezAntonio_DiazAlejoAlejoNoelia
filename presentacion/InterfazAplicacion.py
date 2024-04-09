@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter import PhotoImage, messagebox
 from tkinter.ttk import Combobox
+from presentacion.InterfazCambiarContrasena import InterfazCambiarContrasena
 from dominio.login import Login
 from dominio.registro import Registro
 from dominio.perfil import Perfil
@@ -72,7 +73,7 @@ class InterfazAplicacion:
         self.framePerfilDatos = Frame(self.framePerfil, bg='#81C2AE', highlightbackground="white", highlightcolor="white", highlightthickness=2, width=550, height=640)
         self.framePerfilDatos.place(x=50, y=50)
         #botones del perfil
-        self.botonCambiarContrasena = Button(self.framePerfilDatos, text="Cambiar contraseña", fg="black", width=25)
+        self.botonCambiarContrasena = Button(self.framePerfilDatos, text="Cambiar contraseña", fg="black", width=25, command=self.initMenuCambiarContrasena)
         self.botonCambiarContrasena.place(x=312 ,y=550)
 
         self.botonCalificaciones = Button(self.framePerfil, text="Calificaciones", fg="black", width=25)
@@ -182,20 +183,18 @@ class InterfazAplicacion:
         print(datos_usuario)
         # Verificar si se obtuvieron datos del usuario
         if datos_usuario:
+            self.limpiarCamposPerfil()
+
             # Establecer los datos en los Entry correspondientes
-            self.txtNombre.delete(0, END)
             self.txtNombre.insert(0, datos_usuario[0])
             self.txtNombre.config(state='disabled')
 
-            self.txtApellido.delete(0, END)
             self.txtApellido.insert(0, datos_usuario[1])
             self.txtApellido.config(state='disabled')
 
-            self.txtDNI.delete(0, END)
             self.txtDNI.insert(0, datos_usuario[3])
             self.txtDNI.config(state='disabled')
 
-            self.txtTelefono.delete(0, END)
             self.txtTelefono.insert(0, datos_usuario[2])
             self.txtTelefono.config(state='disabled')
         else:
@@ -241,9 +240,23 @@ class InterfazAplicacion:
             # Limpiar el contenido del campo de contraseña si el registro falla
             self.limpiarCamposRegistro()
 
+    def initMenuCambiarContrasena(self):
+        cambiarContrasena = InterfazCambiarContrasena()
+        self.txtNombre.config(state='normal')
+        self.txtApellido.config(state='normal')
+        self.txtDNI.config(state='normal')
+        self.txtTelefono.config(state='normal')
+
+
     def limpiarCamposRegistro(self):
         self.txtLoginRegistro.delete(0, END)
         self.txtContrasenaRegistro.delete(0, END)
+        self.txtNombre.delete(0, END)
+        self.txtApellido.delete(0, END)
+        self.txtDNI.delete(0, END)
+        self.txtTelefono.delete(0, END)
+    
+    def limpiarCamposPerfil(self):
         self.txtNombre.delete(0, END)
         self.txtApellido.delete(0, END)
         self.txtDNI.delete(0, END)
