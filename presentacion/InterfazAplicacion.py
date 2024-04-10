@@ -76,7 +76,7 @@ class InterfazAplicacion:
         self.botonCambiarContrasena = Button(self.framePerfilDatos, text="Cambiar contraseña", fg="black", width=25, command=self.initMenuCambiarContrasena)
         self.botonCambiarContrasena.place(x=312 ,y=550)
 
-        self.botonCalificaciones = Button(self.framePerfil, text="Calificaciones", fg="black", width=25)
+        self.botonCalificaciones = Button(self.framePerfil, text="Calificaciones", fg="black", width=25, command=self.initMenuCalificaciones)
         self.botonCalificaciones.place(x=620 ,y=100)
         self.botonGustos = Button(self.framePerfil, text="Gustos", fg="black", width=25)
         self.botonGustos.place(x=620 ,y=150)
@@ -158,6 +158,138 @@ class InterfazAplicacion:
 
 
 
+         #Definición frames de Calificaciones
+        self.frameCalificaciones = Frame(bg = '#81C2AE', height=920, width=850)
+        self.frameCalificaciones.place(x=0, y=0)
+
+        self.frameComputacion = Frame(self.frameCalificaciones, bg='#81C2AE', highlightbackground="white", highlightcolor="white", highlightthickness=2)
+        self.frameComputacion.place(x=50, y=50, width=350, height=300)
+        self.frameComputadores = Frame(self.frameCalificaciones, bg='#81C2AE', highlightbackground="white", highlightcolor="white", highlightthickness=2)
+        self.frameComputadores.place(x=420, y=50, width=350, height=300)
+        self.frameTI = Frame(self.frameCalificaciones, bg='#81C2AE', highlightbackground="white", highlightcolor="white", highlightthickness=2)
+        self.frameTI.place(x=50, y=370, width=350, height=300)
+        self.frameIngSoftware = Frame(self.frameCalificaciones, bg='#81C2AE', highlightbackground="white", highlightcolor="white", highlightthickness=2)
+        self.frameIngSoftware.place(x=420, y=370, width=350, height=300)
+
+        #botones de calificaciones
+        self.botonActualizarFormulario = Button(self.frameCalificaciones, text="Actualizar notas", fg="black", width=25)
+        self.botonActualizarFormulario.place(x=350 ,y=710)
+        self.botonVolverFormulario = Button(self.frameCalificaciones, text="Volver al perfil", fg="black", width=25, command=self.initMenuPerfil)
+        self.botonVolverFormulario.place(x=585 ,y=710)
+
+        #labels de calificaciones       
+        self.lblComputacion = Label(self.frameComputacion, text="Computación", font=("Comic Sans",15), fg="white", background="#81C2AE")
+        self.lblComputacion.place(x=20 ,y=20)
+        self.lblComputadores = Label(self.frameComputadores, text="Computadores", font=("Comic Sans",15), fg="white", background="#81C2AE")
+        self.lblComputadores.place(x=20 ,y=20)
+        self.lblTI = Label(self.frameTI, text="Tecnología Información", font=("Comic Sans",15), fg="white", background="#81C2AE")
+        self.lblTI.place(x=20 ,y=20)
+        self.lblIngSoftware = Label(self.frameIngSoftware, text="Ingeniería del Software", font=("Comic Sans",15), fg="white", background="#81C2AE")
+        self.lblIngSoftware.place(x=20 ,y=20)
+
+        #labels de computacion
+        self.lblEDA = Label(self.frameComputacion, text="EDA", font=("Comic Sans",11), fg="white", background="#81C2AE")
+        self.lblEDA.place(x=40 ,y=80)
+        self.lblSI = Label(self.frameComputacion, text="SI", font=("Comic Sans",11), fg="white", background="#81C2AE")
+        self.lblSI.place(x=50 ,y=150)
+        self.lblLogica = Label(self.frameComputacion, text="Lógica", font=("Comic Sans",11), fg="white", background="#81C2AE")
+        self.lblLogica.place(x=30 ,y=220)
+        self.lblAlgebra = Label(self.frameComputacion, text="Álgebra", font=("Comic Sans",11), fg="white", background="#81C2AE")
+        self.lblAlgebra.place(x=190 ,y=80)
+        self.lblMetodologia = Label(self.frameComputacion, text="Metodología", font=("Comic Sans",11), fg="white", background="#81C2AE")
+        self.lblMetodologia.place(x=165,y=150)
+
+        #labels de computadores
+        self.lblSSOO = Label(self.frameComputadores, text="SSOO", font=("Comic Sans",11), fg="white", background="#81C2AE")
+        self.lblSSOO.place(x=40 ,y=80)
+        self.lblPCTR = Label(self.frameComputadores, text="PCTR", font=("Comic Sans",11), fg="white", background="#81C2AE")
+        self.lblPCTR.place(x=40 ,y=130)
+        self.lblTECO = Label(self.frameComputadores, text="TECO", font=("Comic Sans",11), fg="white", background="#81C2AE")
+        self.lblTECO.place(x=40 ,y=180)
+        self.lblECO = Label(self.frameComputadores, text="ECO", font=("Comic Sans",11), fg="white", background="#81C2AE")
+        self.lblECO.place(x=45 ,y=230)
+        self.lblORCO = Label(self.frameComputadores, text="ORCO", font=("Comic Sans",11), fg="white", background="#81C2AE")
+        self.lblORCO.place(x=190,y=80)
+        self.lblARCO = Label(self.frameComputadores, text="ARCO", font=("Comic Sans",11), fg="white", background="#81C2AE")
+        self.lblARCO.place(x=190 ,y=130)
+        self.lblSSDD = Label(self.frameComputadores, text="SSDD", font=("Comic Sans",11), fg="white", background="#81C2AE")
+        self.lblSSDD.place(x=190,y=180)
+
+        #labels de ingenieria del software
+        self.lblISOI = Label(self.frameIngSoftware, text="ISOI", font=("Comic Sans",11), fg="white", background="#81C2AE")
+        self.lblISOI.place(x=45 ,y=80)
+        self.lblISOII = Label(self.frameIngSoftware, text="ISOII", font=("Comic Sans",11), fg="white", background="#81C2AE")
+        self.lblISOII.place(x=30 ,y=150)
+        self.lblBBDDIngSoftware = Label(self.frameIngSoftware, text="BBDD", font=("Comic Sans",11), fg="white", background="#81C2AE")
+        self.lblBBDDIngSoftware.place(x=30 ,y=220)
+        self.lblProgI = Label(self.frameIngSoftware, text="ProgI", font=("Comic Sans",11), fg="white", background="#81C2AE")
+        self.lblProgI.place(x=185 ,y=80)
+        self.lblProgII = Label(self.frameIngSoftware, text="ProgII", font=("Comic Sans",11), fg="white", background="#81C2AE")
+        self.lblProgII.place(x=182,y=150)
+
+        #labels de TI
+        self.lblIPOI = Label(self.frameTI, text="IPOI", font=("Comic Sans",11), fg="white", background="#81C2AE")
+        self.lblIPOI.place(x=40 ,y=80)
+        self.lblBBDDTI = Label(self.frameTI, text="BBDD", font=("Comic Sans",11), fg="white", background="#81C2AE")
+        self.lblBBDDTI.place(x=30 ,y=150)
+        self.lblSisInf = Label(self.frameTI, text="Sis. Inf", font=("Comic Sans",11), fg="white", background="#81C2AE")
+        self.lblSisInf.place(x=30 ,y=220)
+        self.lblRedesI = Label(self.frameTI, text="RedesI", font=("Comic Sans",11), fg="white", background="#81C2AE")
+        self.lblRedesI.place(x=185 ,y=80)
+        self.lblRedesII = Label(self.frameTI, text="RedesII", font=("Comic Sans",11), fg="white", background="#81C2AE")
+        self.lblRedesII.place(x=180,y=150)
+
+        #texto de computacion
+        self.txtEDA=Entry(self.frameComputacion, justify=LEFT, width=4, font=('Comic Sans', 11))
+        self.txtEDA.place(x=90 ,y=80)
+        self.txtSI=Entry(self.frameComputacion, justify=LEFT, width=4, font=('Comic Sans', 11))
+        self.txtSI.place(x=90 ,y=150)
+        self.txtLogica=Entry(self.frameComputacion, justify=LEFT, width=4, font=('Comic Sans', 11))
+        self.txtLogica.place(x=90 ,y=220)
+        self.txtAlgebra=Entry(self.frameComputacion, justify=LEFT, width=4, font=('Comic Sans', 11))
+        self.txtAlgebra.place(x=260 ,y=80)
+        self.txtMetodologia=Entry(self.frameComputacion, justify=LEFT, width=4, font=('Comic Sans', 11))
+        self.txtMetodologia.place(x=260 ,y=150)
+
+        #texto del computadores
+        self.txtSSOO=Entry(self.frameComputadores, justify=LEFT, width=4, font=('Comic Sans', 11))
+        self.txtSSOO.place(x=95 ,y=80)
+        self.txtPCTR=Entry(self.frameComputadores, justify=LEFT, width=4, font=('Comic Sans', 11))
+        self.txtPCTR.place(x=95 ,y=130)
+        self.txtTECO=Entry(self.frameComputadores, justify=LEFT, width=4, font=('Comic Sans', 11))
+        self.txtTECO.place(x=95 ,y=180)
+        self.txtECO=Entry(self.frameComputadores, justify=LEFT, width=4, font=('Comic Sans', 11))
+        self.txtECO.place(x=95 ,y=230)
+        self.txtORCO=Entry(self.frameComputadores, justify=LEFT, width=4, font=('Comic Sans', 11))
+        self.txtORCO.place(x=250 ,y=80)
+        self.txtARCO=Entry(self.frameComputadores, justify=LEFT, width=4, font=('Comic Sans', 11))
+        self.txtARCO.place(x=250 ,y=130)
+        self.txtSSDD=Entry(self.frameComputadores, justify=LEFT, width=4, font=('Comic Sans', 11))
+        self.txtSSDD.place(x=250 ,y=180)
+
+        #texto de ingenieria del software
+        self.txtISOI=Entry(self.frameIngSoftware, justify=LEFT, width=4, font=('Comic Sans', 11))
+        self.txtISOI.place(x=90 ,y=80)
+        self.txtISOII=Entry(self.frameIngSoftware, justify=LEFT, width=4, font=('Comic Sans', 11))
+        self.txtISOII.place(x=90 ,y=150)
+        self.txtBBDDIngSoftware=Entry(self.frameIngSoftware, justify=LEFT, width=4, font=('Comic Sans', 11))
+        self.txtBBDDIngSoftware.place(x=90 ,y=220)
+        self.txtProgI=Entry(self.frameIngSoftware, justify=LEFT, width=4, font=('Comic Sans', 11))
+        self.txtProgI.place(x=250 ,y=80)
+        self.txtProgII=Entry(self.frameIngSoftware, justify=LEFT, width=4, font=('Comic Sans', 11))
+        self.txtProgII.place(x=250 ,y=150)
+                  
+        #texto de TI
+        self.txtIPOI=Entry(self.frameTI, justify=LEFT, width=4, font=('Comic Sans', 11))
+        self.txtIPOI.place(x=90 ,y=80)
+        self.txtBBDDTI=Entry(self.frameTI, justify=LEFT, width=4, font=('Comic Sans', 11))
+        self.txtBBDDTI.place(x=90 ,y=150)
+        self.txtSisInf=Entry(self.frameTI, justify=LEFT, width=4, font=('Comic Sans', 11))
+        self.txtSisInf.place(x=90 ,y=220)
+        self.txtRedesI=Entry(self.frameTI, justify=LEFT, width=4, font=('Comic Sans', 11))
+        self.txtRedesI.place(x=250 ,y=80)
+        self.txtRedesII=Entry(self.frameTI, justify=LEFT, width=4, font=('Comic Sans', 11))
+        self.txtRedesII.place(x=250 ,y=150)
 
 
 
@@ -169,18 +301,19 @@ class InterfazAplicacion:
         self.frameLogin.place(x=0, y=0)
         self.framePerfil.place_forget()
         self.frameRegistrar.place_forget()
+        self.frameCalificaciones.place_forget()
     
     def initMenuPerfil(self):
         self.framePerfil.place(x=0, y=0)
         self.frameLogin.place_forget()
         self.frameRegistrar.place_forget()
+        self.frameCalificaciones.place_forget()
 
         # Crear una instancia de la clase Perfil
         perfil = Perfil()
 
         # Obtener los datos del usuario
         datos_usuario = perfil.obtener_datos(self.txtLogin.get())
-        print(datos_usuario)
         # Verificar si se obtuvieron datos del usuario
         if datos_usuario:
             self.limpiarCamposPerfil()
@@ -206,6 +339,78 @@ class InterfazAplicacion:
         self.frameRegistrar.place(x=0, y=0)
         self.framePerfil.place_forget()
         self.frameLogin.place_forget()
+        self.frameCalificaciones.place_forget()
+
+    def initMenuCalificaciones(self):
+        self.frameCalificaciones.place(x=0, y=0)
+        self.framePerfil.place_forget()
+        self.frameLogin.place_forget()
+        self.frameRegistrar.place_forget()
+
+         # Crear una instancia de la clase Perfil
+        perfil = Perfil()
+        # Obtener los datos del usuario
+        notas_usuario = perfil.obtener_calificaciones(self.txtLogin.get()) 
+        print(notas_usuario)  
+        print(notas_usuario[0])
+        print(notas_usuario[1])
+
+        if notas_usuario:
+            #eda, si, logica, algebra, metodologia, ipoi, bbdd, sisinf, redesi, redesii, ssoo, pctr, teco, eco, arco, orco, ssdd, isoi, isoii, progi, progii
+            campos = [self.txtEDA, self.txtSI, self.txtLogica, self.txtAlgebra, self.txtMetodologia, self.txtIPOI, self.txtBBDDTI, self.txtSisInf, self.txtRedesI, self.txtRedesII, self.txtSSOO, self.txtPCTR, self.txtTECO, self.txtECO, self.txtARCO, self.txtORCO, self.txtSSDD, self.txtISOI, self.txtISOII, self.txtProgI, self.txtProgII]
+            self.txtBBDDIngSoftware.insert(0, notas_usuario[6])
+            self.txtBBDDIngSoftware.config(state='disabled')
+            for i in range(len(notas_usuario)):
+                print(notas_usuario[i])
+                campos[i].insert(0, notas_usuario[i])
+                campos[i].config(state='disabled')
+            '''
+            self.txtEDA.insert(0, notas_usuario[0])
+            self.txtEDA.config(state='disabled')
+            self.txtSI.insert(0, notas_usuario[1])
+            self.txtSI.config(state='disabled')
+            self.txtLogica.insert(0, notas_usuario[2])
+            self.txtLogica.config(state='disabled')
+            self.txtAlgebra.insert(0, notas_usuario[3])
+            self.txtAlgebra.config(state='disabled')
+            self.txtMetodologia.insert(0, notas_usuario[4])
+            self.txtMetodologia.config(state='disabled')
+            self.txtIPOI.insert(0, notas_usuario[5])
+            self.txtIPOI.config(state='disabled')
+            self.txtBBDDTI.insert(0, notas_usuario[6])
+            self.txtBBDDTI.config(state='disabled')
+            self.txtSisInf.insert(0, notas_usuario[7])
+            self.txtSisInf.config(state='disabled')
+            self.txtRedesI.insert(0, notas_usuario[8])
+            self.txtRedesI.config(state='disabled')
+            self.txtRedesII.insert(0, notas_usuario[9])
+            self.txtRedesII.config(state='disabled')
+            self.txtSSOO.insert(0, notas_usuario[10])
+            self.txtSSOO.config(state='disabled')
+            self.txtPCTR.insert(0, notas_usuario[11])
+            self.txtPCTR.config(state='disabled')
+            self.txtTECO.insert(0, notas_usuario[12])
+            self.txtTECO.config(state='disabled')
+            self.txtECO.insert(0, notas_usuario[13])
+            self.txtECO.config(state='disabled')
+            self.txtARCO.insert(0, notas_usuario[14])
+            self.txtARCO.config(state='disabled')
+            self.txtORCO.insert(0, notas_usuario[15])
+            self.txtORCO.config(state='disabled')
+            self.txtSSDD.insert(0, notas_usuario[16])
+            self.txtSSDD.config(state='disabled')
+            self.txtISOI.insert(0, notas_usuario[17])
+            self.txtISOI.config(state='disabled')
+            self.txtISOII.insert(0, notas_usuario[18])
+            self.txtISOII.config(state='disabled')
+            self.txtProgI.insert(0, notas_usuario[19])
+            self.txtProgI.config(state='disabled')
+            self.txtProgII.insert(0, notas_usuario[20])
+            self.txtProgII.config(state='disabled')
+            '''
+        else:
+            # Si no se encuentran datos del usuario, mostrar un mensaje de error
+            messagebox.showerror("Error", "No se encontraron las notas del usuario.")
 
     def verificarCredenciales(self):
         usuario = self.txtLogin.get()

@@ -6,7 +6,7 @@ import os
 
 if __name__ == '__main__':
 
-    archivoBBDD_db = "persistencia/basesDeDatos/UsuariosRecomendaciones.db"
+    archivoBBDD_db = "persistencia/UsuariosRecomendaciones.db"
 
     
 

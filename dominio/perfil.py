@@ -1,4 +1,5 @@
 import sqlite3
+from unittest import result
 
 class Perfil:
     def __init__(self):
@@ -33,30 +34,24 @@ class Perfil:
             return False, f"No se pudo cambiar la contraseña: {e}"
         finally:
             self.conn.close()
-    '''    
-    def cambiar_contrasena(self, usuario, contrasena):
-        try:
-            # Actualizar en la base de datos la contraseña del usuario
-            self.cursor.execute('UPDATE Usuarios SET password=? WHERE username=?', (contrasena, usuario))
-            self.conn.commit()
-            return True
-        except Exception as e:
-            return False
-        finally:
-            self.conn.close()
         
     def obtener_calificaciones(self, usuario):
         try:
+            #Buscar el dni del usuario
+            self.cursor.execute('SELECT dni FROM Usuarios WHERE username=?', (usuario,))
+            dni = self.cursor.fetchone()
             # Buscar en la base de datos las calificaciones del usuario
-            self.cursor.execute('SELECT * FROM Calificaciones WHERE username=?', (usuario,))
+            self.cursor.execute('SELECT  eda, si, logica, algebra, metodologia, ipoi, bbdd, sisinf, redesi, redesii, ssoo, pctr, teco, eco, arco, orco, ssdd, isoi, isoii, progi, progii FROM Notas WHERE dni=?', (dni[0],))
             resultado = self.cursor.fetchall()
+            if resultado:
+                resultado = list(resultado[0])
             return resultado
         except Exception as e:
             print("Error al obtener calificaciones del usuario:", e)
             return None
         finally:
             self.conn.close()
-        
+    '''
     def obtener_gustos(self, usuario):
         try:
             # Buscar en la base de datos los gustos del usuario
