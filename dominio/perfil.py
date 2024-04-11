@@ -61,14 +61,24 @@ class Perfil:
             # Convertir las notas de formato string a float y reemplazar comas por puntos
             notas_float = [float(nota.replace(',', '.')) for nota in notas]
             
-            # Actualizar las calificaciones del usuario en la base de datos
-            self.cursor.execute('UPDATE Notas SET eda=?, si=?, logica=?, algebra=?, metodologia=?, ipoi=?, bbdd=?, sisinf=?, redesi=?, redesii=?, ssoo=?, pctr=?, teco=?, eco=?, arco=?, orco=?, ssdd=?, isoi=?, isoii=?, progi=?, progii=? WHERE dni=?', notas_float + [dni[0],])
+            # Verificar si el usuario tiene un registro en la tabla Notas
+            self.cursor.execute('SELECT * FROM Notas WHERE dni=?', [dni[0]])
+            registro_existente = self.cursor.fetchone()
+            
+            if registro_existente:
+                # Actualizar las calificaciones del usuario en la base de datos
+                self.cursor.execute('UPDATE Notas SET eda=?, si=?, logica=?, algebra=?, metodologia=?, ipoi=?, bbdd=?, sisinf=?, redesi=?, redesii=?, ssoo=?, pctr=?, teco=?, eco=?, arco=?, orco=?, ssdd=?, isoi=?, isoii=?, progi=?, progii=? WHERE dni=?', notas_float + [dni[0],])
+            else:
+                # Insertar las calificaciones del usuario en la base de datos
+                self.cursor.execute('INSERT INTO Notas (eda, si, logica, algebra, metodologia, ipoi, bbdd, sisinf, redesi, redesii, ssoo, pctr, teco, eco, arco, orco, ssdd, isoi, isoii, progi, progii, dni) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', notas_float + [dni[0],])
+            
             self.conn.commit()
             return True, "Calificaciones actualizadas exitosamente."
         except Exception as e:
             return False, f"No se pudieron actualizar las calificaciones: {e}"
         finally:
             self.conn.close()
+
 
 
     '''
