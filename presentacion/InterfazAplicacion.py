@@ -67,20 +67,26 @@ class InterfazAplicacion:
 
 
 
+
+
+
+
+
         #Definición frame Perfil
         self.framePerfil = Frame(bg='#81C2AE', highlightbackground="white", highlightcolor="white", highlightthickness=2, height=920, width=850)
         self.framePerfil.place(x=0, y=0)
         self.framePerfilDatos = Frame(self.framePerfil, bg='#81C2AE', highlightbackground="white", highlightcolor="white", highlightthickness=2, width=550, height=640)
         self.framePerfilDatos.place(x=50, y=50)
+
         #botones del perfil
         self.botonCambiarContrasena = Button(self.framePerfilDatos, text="Cambiar contraseña", fg="black", width=25, command=self.initMenuCambiarContrasena)
         self.botonCambiarContrasena.place(x=312 ,y=550)
 
         self.botonCalificaciones = Button(self.framePerfil, text="Calificaciones", fg="black", width=25, command=self.initMenuCalificaciones)
         self.botonCalificaciones.place(x=620 ,y=100)
-        self.botonGustos = Button(self.framePerfil, text="Gustos", fg="black", width=25)
+        self.botonGustos = Button(self.framePerfil, text="Gustos", fg="black", width=25, command=self.initMenuGustos)
         self.botonGustos.place(x=620 ,y=150)
-        self.botonFormulario = Button(self.framePerfil, text="Formulario", fg="black", width=25)
+        self.botonFormulario = Button(self.framePerfil, text="Formulario", fg="black", width=25, command=self.initMenuFormulario)
         self.botonFormulario.place(x=620 ,y=650)
 
         #labels del perfil        
@@ -105,6 +111,10 @@ class InterfazAplicacion:
         self.txtDNI.place(x=130 ,y=350)
         self.txtTelefono=Entry(self.framePerfilDatos, justify=LEFT, width=33, font=('Comic Sans', 14))
         self.txtTelefono.place(x=130 ,y=450)
+
+
+
+
 
 
 
@@ -153,6 +163,14 @@ class InterfazAplicacion:
         self.txtDNIRegistro.place(x=130 ,y=420)
         self.txtTelefonoRegistro=Entry(self.frameRegistrarDatos, justify=LEFT, width=33, font=('Comic Sans', 14))
         self.txtTelefonoRegistro.place(x=130 ,y=500)
+
+
+
+
+
+
+
+
 
 
 
@@ -297,6 +315,178 @@ class InterfazAplicacion:
 
 
 
+
+
+
+
+
+
+
+
+
+        #Definicion frame Gustos
+        self.frameGustos = Frame(bg = '#81C2AE', height=920, width=850)
+        self.frameGustos.place(x=0, y=0)
+        self.frameGustosPreguntas = Frame(self.frameGustos, bg='#81C2AE', highlightbackground="white", highlightcolor="white", highlightthickness=2)
+        self.frameGustosPreguntas.place(x=50, y=50, width=720, height=659)
+
+        #botones de gustos
+        self.botonVolverGustos = Button(self.frameGustos, text="Volver al perfil", fg="black", width=25, command=self.initMenuPerfil)
+        self.botonVolverGustos.place(x=590 ,y=732)
+
+        #labels de gustos
+        self.lblRespuestas = Label(self.frameGustosPreguntas, text="Respuestas", font=("Comic Sans",15), fg="white", background="#81C2AE")
+        self.lblRespuestas.place(x=20 ,y=20)
+        self.lblP1 = Label(self.frameGustosPreguntas, text="P1", font=("Comic Sans",14), fg="white", background="#81C2AE")
+        self.lblP1.place(x=20 ,y=70)
+        self.lblP2 = Label(self.frameGustosPreguntas, text="P2", font=("Comic Sans",14), fg="white", background="#81C2AE")
+        self.lblP2.place(x=20 ,y=135)
+        self.lblP3 = Label(self.frameGustosPreguntas, text="P3", font=("Comic Sans",14), fg="white", background="#81C2AE")
+        self.lblP3.place(x=20 ,y=200)
+        self.lblP4 = Label(self.frameGustosPreguntas, text="P4", font=("Comic Sans",14), fg="white", background="#81C2AE")
+        self.lblP4.place(x=20 ,y=265)
+        self.lblP5 = Label(self.frameGustosPreguntas, text="P5", font=("Comic Sans",14), fg="white", background="#81C2AE")
+        self.lblP5.place(x=20 ,y=330)
+        self.lblP6 = Label(self.frameGustosPreguntas, text="P6", font=("Comic Sans",14), fg="white", background="#81C2AE")
+        self.lblP6.place(x=20 ,y=395)
+        self.lblP7 = Label(self.frameGustosPreguntas, text="P7", font=("Comic Sans",14), fg="white", background="#81C2AE")
+        self.lblP7.place(x=20 ,y=460)
+        self.lblP8 = Label(self.frameGustosPreguntas, text="P8", font=("Comic Sans",14), fg="white", background="#81C2AE")
+        self.lblP8.place(x=20 ,y=525)
+        self.lblP9 = Label(self.frameGustosPreguntas, text="P9", font=("Comic Sans",14), fg="white", background="#81C2AE")
+        self.lblP9.place(x=20 ,y=590)
+
+        #texto de gustos
+        self.txtP1=Entry(self.frameGustosPreguntas, justify=LEFT, width=77, font=('Comic Sans', 11))
+        self.txtP1.place(x=60 ,y=70)
+        self.txtP2=Entry(self.frameGustosPreguntas, justify=LEFT, width=77, font=('Comic Sans', 11))
+        self.txtP2.place(x=60 ,y=135)
+        self.txtP3=Entry(self.frameGustosPreguntas, justify=LEFT, width=77, font=('Comic Sans', 11))
+        self.txtP3.place(x=60 ,y=200)
+        self.txtP4=Entry(self.frameGustosPreguntas, justify=LEFT, width=77, font=('Comic Sans', 11))
+        self.txtP4.place(x=60 ,y=265)
+        self.txtP5=Entry(self.frameGustosPreguntas, justify=LEFT, width=77, font=('Comic Sans', 11))
+        self.txtP5.place(x=60 ,y=330)
+        self.txtP6=Entry(self.frameGustosPreguntas, justify=LEFT, width=77, font=('Comic Sans', 11))
+        self.txtP6.place(x=60 ,y=395)
+        self.txtP7=Entry(self.frameGustosPreguntas, justify=LEFT, width=77, font=('Comic Sans', 11))
+        self.txtP7.place(x=60 ,y=460)
+        self.txtP8=Entry(self.frameGustosPreguntas, justify=LEFT, width=77, font=('Comic Sans', 11))
+        self.txtP8.place(x=60 ,y=525)
+        self.txtP9=Entry(self.frameGustosPreguntas, justify=LEFT, width=77, font=('Comic Sans', 11))
+        self.txtP9.place(x=60 ,y=590)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+             #Definición frame Formulario
+        self.frameFormulario = Frame(bg = '#81C2AE', height=960, width=850)
+        self.frameFormulario.place(x=0, y=0)
+        self.frameFormularioPreguntas = Frame(self.frameFormulario, bg='#81C2AE', highlightbackground="white", highlightcolor="white", highlightthickness=2)
+        self.frameFormularioPreguntas.place(x=30, y=15, width=750, height=710)
+
+        #botones de formulario
+        self.botonVolverFormulario = Button(self.frameFormulario, text="Volver al perfil", fg="black", width=25, command=self.initMenuPerfil)
+        self.botonVolverFormulario.place(x=598 ,y=742)
+        self.botonCambiosFormulario = Button(self.frameFormulario, text="Confirmar Cambios", fg="black", width=25)
+        self.botonCambiosFormulario.place(x=370 ,y=742)
+
+        #labels de formulario
+        self.lblFormulario = Label(self.frameFormularioPreguntas, text="Formulario", font=("Comic Sans",15), fg="white", background="#81C2AE")
+        self.lblFormulario.place(x=20 ,y=20)
+        self.lblP1Formulario = Label(self.frameFormularioPreguntas , text="P1. ¿Qué área te resulta más atractiva? ", font=("Comic Sans",12), fg="white", background="#81C2AE")
+        self.lblP1Formulario.place(x=20 ,y=65)
+        self.lblP2Formulario = Label(self.frameFormularioPreguntas , text="P2. ¿Qué tipo de programación te interesa más?", font=("Comic Sans",12), fg="white", background="#81C2AE")
+        self.lblP2Formulario.place(x=20 ,y=135)
+        self.lblP3Formulario = Label(self.frameFormularioPreguntas , text="P3. ¿Qué aspecto de la informática te intriga más?", font=("Comic Sans",12), fg="white", background="#81C2AE")
+        self.lblP3Formulario.place(x=20 ,y=205)
+        self.lblP4Formulario = Label(self.frameFormularioPreguntas , text="P4. ¿Qué te gustaría aprender más sobre?", font=("Comic Sans",12), fg="white", background="#81C2AE")
+        self.lblP4Formulario.place(x=20 ,y=275)
+        self.lblP5Formulario = Label(self.frameFormularioPreguntas , text="P5. ¿Qué habilidades te gustaría desarrollar más?", font=("Comic Sans",12), fg="white", background="#81C2AE")
+        self.lblP5Formulario.place(x=20 ,y=345)
+        self.lblP6Formulario = Label(self.frameFormularioPreguntas , text="P6. ¿Qué aspecto de la informática te gustaría aplicar en tu futuro profesional?", font=("Comic Sans",12), fg="white", background="#81C2AE")
+        self.lblP6Formulario.place(x=20 ,y=415)
+        self.lblP7Formulario = Label(self.frameFormularioPreguntas , text="P7. ¿Cuál es tu objetivo principal al estudiar informática?", font=("Comic Sans",12), fg="white", background="#81C2AE")
+        self.lblP7Formulario.place(x=20 ,y=485)
+        self.lblP8Formulario = Label(self.frameFormularioPreguntas , text="P8. ¿Qué área de la informática te motiva más en términos de innovación y avance tecnológico?", font=("Comic Sans",13), fg="white", background="#81C2AE")
+        self.lblP8Formulario.place(x=20 ,y=555)
+        self.lblP9Formulario = Label(self.frameFormularioPreguntas , text="P9. ¿Qué tipo de desafíos te resultan más emocionantes?", font=("Comic Sans",12), fg="white", background="#81C2AE")
+        self.lblP9Formulario.place(x=20 ,y=625)
+
+        #opciones de formulario
+        opcionesP1 = ("a) Desarrollo de software y sistemas.", "b) Estructura y funcionamiento de los computadores. ", "c) Manipulación y análisis de datos. ","d) Gestión y diseño de redes de computadores.")
+        opcionesP2 = ("a) Desarrollo de aplicaciones de software.","b) Programación de sistemas y tiempo real.", "c) Implementación de algoritmos y estructuras de datos.", "d) Diseño y configuración de redes informáticas.")
+        opcionesP3 = ("a) Interacción humano-computador y experiencia de usuario.", "b) Arquitectura y funcionamiento interno de los computadores.", "c) Análisis y manipulación de grandes volúmenes de datos.", "d) Integración de interfaces de usuario con sistemas de información empresariales.")
+        opcionesP4 = ("a) Desarrollo de software y gestión de proyectos.", "b) Estructura y funcionamiento de los sistemas informáticos.", "c) Algoritmos y técnicas de programación avanzada.", "d) Creación de interfaces de usuario.")
+        opcionesP5 = ("a) Programación orientada a objetos y desarrollo de aplicaciones.", "b) Comprensión profunda de los sistemas operativos y la arquitectura de computadores.","c) Análisis de datos y desarrollo de soluciones inteligentes.", "d) Configuración y administración de redes y sistemas de información.")
+        opcionesP6 = ("a) Desarrollo de software para diferentes plataformas y aplicaciones.", "b) Diseño y optimización de sistemas informáticos complejos.", "c) Investigación y desarrollo en inteligencia artificial y análisis de datos.", "d) Implementación y gestión de infraestructuras tecnológicas empresariales y diseño de interfaces.")
+        opcionesP7 = ("a) Convertirme en un desarrollador de software altamente competente.","b) Profundizar en el funcionamiento interno de los sistemas informáticos.","c) Explorar nuevas tecnologías y aplicaciones en el análisis de datos.", "d) Adquirir habilidades para gestionar y asegurar sistemas de información empresariales y desarrollo software de interfaces aplicando lógica en el proyecto.")
+        opcionesP8 = ("a) Desarrollo de software y aplicaciones para resolver problemas del mundo real.", "b) Investigación y diseño de nuevas arquitecturas de computadoras.", "c) Exploración de técnicas de inteligencia artificial para automatización y optimización.", "d) Implementación de infraestructuras de red para mejorar la conectividad y la seguridad.")
+        opcionesP9 = ("a) Crear soluciones intuitivas y eficientes para usuarios finales.", "b) Resolver problemas complejos relacionados con la escalabilidad y el rendimiento de los sistemas informáticos.", "c) Abordar problemas de análisis de datos para obtener información significativa.", "d) Garantizar la disponibilidad y la integridad de la infraestructura tecnológica en entornos empresariales.")
+                      
+        #combobox de formulario
+        self.comboboxP1 = Combobox(self.frameFormularioPreguntas , font=('Comic Sans', 10), values=opcionesP1, width=95, state='readonly')
+        self.comboboxP1.current(0)  
+        self.comboboxP1.place(x=20 ,y=100)
+        self.comboboxP2 = Combobox(self.frameFormularioPreguntas , font=('Comic Sans', 10), values=opcionesP2, width=95, state='readonly')
+        self.comboboxP2.current(0)  
+        self.comboboxP2.place(x=20 ,y=170)
+        self.comboboxP3 = Combobox(self.frameFormularioPreguntas , font=('Comic Sans', 10), values=opcionesP3, width=95, state='readonly')
+        self.comboboxP3.current(0)  
+        self.comboboxP3.place(x=20 ,y=240)
+        self.comboboxP4 = Combobox(self.frameFormularioPreguntas , font=('Comic Sans', 10), values=opcionesP4, width=95, state='readonly')
+        self.comboboxP4.current(0) 
+        self.comboboxP4.place(x=20 ,y=310)
+        self.comboboxP5 = Combobox(self.frameFormularioPreguntas , font=('Comic Sans', 10), values=opcionesP5, width=95, state='readonly')
+        self.comboboxP5.current(0)  
+        self.comboboxP5.place(x=20 ,y=380)
+        self.comboboxP6 = Combobox(self.frameFormularioPreguntas , font=('Comic Sans', 10), values=opcionesP6, width=95, state='readonly')
+        self.comboboxP6.current(0)  
+        self.comboboxP6.place(x=20 ,y=450)
+        self.comboboxP7 = Combobox(self.frameFormularioPreguntas , font=('Comic Sans', 10), values=opcionesP7, width=95, state='readonly')
+        self.comboboxP7.current(0)  
+        self.comboboxP7.place(x=20 ,y=520)
+        self.comboboxP8 = Combobox(self.frameFormularioPreguntas , font=('Comic Sans', 10), values=opcionesP8, width=95, state='readonly')
+        self.comboboxP8.current(0)  
+        self.comboboxP8.place(x=20 ,y=590)
+        self.comboboxP9 = Combobox(self.frameFormularioPreguntas , font=('Comic Sans', 10), values=opcionesP9, width=95, state='readonly')
+        self.comboboxP9.current(0) 
+        self.comboboxP9.place(x=20 ,y=660)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         self.initMenuLogin()
         self.ventana.mainloop()
 
@@ -305,12 +495,17 @@ class InterfazAplicacion:
         self.framePerfil.place_forget()
         self.frameRegistrar.place_forget()
         self.frameCalificaciones.place_forget()
+        self.frameGustos.place_forget()
+        self.frameFormulario.place_forget()
     
     def initMenuPerfil(self):
         self.framePerfil.place(x=0, y=0)
         self.frameLogin.place_forget()
         self.frameRegistrar.place_forget()
         self.frameCalificaciones.place_forget()
+        self.frameGustos.place_forget()
+        self.frameFormulario.place_forget()
+
 
         # Crear una instancia de la clase Perfil
         perfil = Perfil()
@@ -343,12 +538,18 @@ class InterfazAplicacion:
         self.framePerfil.place_forget()
         self.frameLogin.place_forget()
         self.frameCalificaciones.place_forget()
+        self.frameGustos.place_forget()
+        self.frameFormulario.place_forget()
+
 
     def initMenuCalificaciones(self):
         self.frameCalificaciones.place(x=0, y=0)
         self.framePerfil.place_forget()
         self.frameLogin.place_forget()
         self.frameRegistrar.place_forget()
+        self.frameGustos.place_forget()
+        self.frameFormulario.place_forget()
+
         self.botonConfirmarCalificaciones.config(state=DISABLED)
         self.botonActualizarCalificaciones.config(state=NORMAL)
 
@@ -369,6 +570,30 @@ class InterfazAplicacion:
         else:
             # Si no se encuentran datos del usuario, mostrar un mensaje de error
             messagebox.showerror("Error", "No se encontraron las notas del usuario.")
+
+    def initMenuCambiarContrasena(self):
+        InterfazCambiarContrasena(self.txtLogin.get())
+        self.txtNombre.config(state='normal')
+        self.txtApellido.config(state='normal')
+        self.txtDNI.config(state='normal')
+        self.txtTelefono.config(state='normal')
+
+    def initMenuGustos(self):
+        self.frameGustos.place(x=0, y=0)
+        self.framePerfil.place_forget()
+        self.frameLogin.place_forget()
+        self.frameRegistrar.place_forget()
+        self.frameCalificaciones.place_forget()
+        self.frameFormulario.place_forget()
+
+    def initMenuFormulario(self):
+        self.frameFormulario.place(x=0, y=0)
+        self.framePerfil.place_forget()
+        self.frameLogin.place_forget()
+        self.frameRegistrar.place_forget()
+        self.frameCalificaciones.place_forget()
+        self.frameGustos.place_forget()
+        self.comboboxInicio0()
 
     def verificarCredenciales(self):
         usuario = self.txtLogin.get()
@@ -403,13 +628,6 @@ class InterfazAplicacion:
             # Limpiar el contenido del campo de contraseña si el registro falla
             self.limpiarCamposRegistro()
 
-    def initMenuCambiarContrasena(self):
-        InterfazCambiarContrasena(self.txtLogin.get())
-        self.txtNombre.config(state='normal')
-        self.txtApellido.config(state='normal')
-        self.txtDNI.config(state='normal')
-        self.txtTelefono.config(state='normal')
-
     def actualizarCalificaciones(self):
         self.escribirDatosCalificaciones()
         self.botonConfirmarCalificaciones.config(state=NORMAL)
@@ -432,8 +650,7 @@ class InterfazAplicacion:
             self.noEscribirDatosCalificaciones()
 
         else:
-            self.botonActualizarCalificaciones.config(state=NORMAL)
-            self.botonConfirmarCalificaciones.config(state=DISABLED)
+            self.initMenuCalificaciones()
             self.noEscribirDatosCalificaciones()
 
     def noEscribirDatosCalificaciones(self):
@@ -521,4 +738,17 @@ class InterfazAplicacion:
         self.txtApellido.delete(0, END)
         self.txtDNI.delete(0, END)
         self.txtTelefono.delete(0, END)
+
+    def comboboxInicio0(self):
+        self.comboboxP1.current(0)
+        self.comboboxP2.current(0)
+        self.comboboxP3.current(0)
+        self.comboboxP4.current(0)
+        self.comboboxP5.current(0)
+        self.comboboxP6.current(0)
+        self.comboboxP7.current(0)
+        self.comboboxP8.current(0)
+        self.comboboxP9.current(0)
+        self.comboboxP1.focus_set()
+
 
