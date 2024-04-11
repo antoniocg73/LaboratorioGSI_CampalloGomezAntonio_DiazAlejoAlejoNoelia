@@ -172,10 +172,13 @@ class InterfazAplicacion:
         self.frameIngSoftware.place(x=420, y=370, width=350, height=300)
 
         #botones de calificaciones
-        self.botonActualizarFormulario = Button(self.frameCalificaciones, text="Actualizar notas", fg="black", width=25)
-        self.botonActualizarFormulario.place(x=350 ,y=710)
-        self.botonVolverFormulario = Button(self.frameCalificaciones, text="Volver al perfil", fg="black", width=25, command=self.initMenuPerfil)
-        self.botonVolverFormulario.place(x=585 ,y=710)
+        self.botonActualizarCalificaciones = Button(self.frameCalificaciones, text="Actualizar notas", fg="black", width=25, command=self.actualizarCalificaciones)
+        self.botonActualizarCalificaciones.place(x=350 ,y=710)
+        self.botonVolverCalificaciones = Button(self.frameCalificaciones, text="Volver al perfil", fg="black", width=25, command=self.initMenuPerfil)
+        self.botonVolverCalificaciones.place(x=585 ,y=710)
+        self.botonConfirmarCalificaciones = Button(self.frameCalificaciones, text="Confirmar", fg="black", width=25, command=self.confirmarCalificaciones)
+        self.botonConfirmarCalificaciones.place(x=115 ,y=710)
+        self.botonConfirmarCalificaciones.config(state=DISABLED)
 
         #labels de calificaciones       
         self.lblComputacion = Label(self.frameComputacion, text="Computación", font=("Comic Sans",15), fg="white", background="#81C2AE")
@@ -346,68 +349,23 @@ class InterfazAplicacion:
         self.framePerfil.place_forget()
         self.frameLogin.place_forget()
         self.frameRegistrar.place_forget()
+        self.botonConfirmarCalificaciones.config(state=DISABLED)
+        self.botonActualizarCalificaciones.config(state=NORMAL)
+
 
          # Crear una instancia de la clase Perfil
         perfil = Perfil()
         # Obtener los datos del usuario
         notas_usuario = perfil.obtener_calificaciones(self.txtLogin.get()) 
-        print(notas_usuario)  
-        print(notas_usuario[0])
-        print(notas_usuario[1])
 
         if notas_usuario:
+            self.limpiarCamposCalificaciones()
             #eda, si, logica, algebra, metodologia, ipoi, bbdd, sisinf, redesi, redesii, ssoo, pctr, teco, eco, arco, orco, ssdd, isoi, isoii, progi, progii
             campos = [self.txtEDA, self.txtSI, self.txtLogica, self.txtAlgebra, self.txtMetodologia, self.txtIPOI, self.txtBBDDTI, self.txtSisInf, self.txtRedesI, self.txtRedesII, self.txtSSOO, self.txtPCTR, self.txtTECO, self.txtECO, self.txtARCO, self.txtORCO, self.txtSSDD, self.txtISOI, self.txtISOII, self.txtProgI, self.txtProgII]
             self.txtBBDDIngSoftware.insert(0, notas_usuario[6])
-            self.txtBBDDIngSoftware.config(state='disabled')
             for i in range(len(notas_usuario)):
-                print(notas_usuario[i])
                 campos[i].insert(0, notas_usuario[i])
-                campos[i].config(state='disabled')
-            '''
-            self.txtEDA.insert(0, notas_usuario[0])
-            self.txtEDA.config(state='disabled')
-            self.txtSI.insert(0, notas_usuario[1])
-            self.txtSI.config(state='disabled')
-            self.txtLogica.insert(0, notas_usuario[2])
-            self.txtLogica.config(state='disabled')
-            self.txtAlgebra.insert(0, notas_usuario[3])
-            self.txtAlgebra.config(state='disabled')
-            self.txtMetodologia.insert(0, notas_usuario[4])
-            self.txtMetodologia.config(state='disabled')
-            self.txtIPOI.insert(0, notas_usuario[5])
-            self.txtIPOI.config(state='disabled')
-            self.txtBBDDTI.insert(0, notas_usuario[6])
-            self.txtBBDDTI.config(state='disabled')
-            self.txtSisInf.insert(0, notas_usuario[7])
-            self.txtSisInf.config(state='disabled')
-            self.txtRedesI.insert(0, notas_usuario[8])
-            self.txtRedesI.config(state='disabled')
-            self.txtRedesII.insert(0, notas_usuario[9])
-            self.txtRedesII.config(state='disabled')
-            self.txtSSOO.insert(0, notas_usuario[10])
-            self.txtSSOO.config(state='disabled')
-            self.txtPCTR.insert(0, notas_usuario[11])
-            self.txtPCTR.config(state='disabled')
-            self.txtTECO.insert(0, notas_usuario[12])
-            self.txtTECO.config(state='disabled')
-            self.txtECO.insert(0, notas_usuario[13])
-            self.txtECO.config(state='disabled')
-            self.txtARCO.insert(0, notas_usuario[14])
-            self.txtARCO.config(state='disabled')
-            self.txtORCO.insert(0, notas_usuario[15])
-            self.txtORCO.config(state='disabled')
-            self.txtSSDD.insert(0, notas_usuario[16])
-            self.txtSSDD.config(state='disabled')
-            self.txtISOI.insert(0, notas_usuario[17])
-            self.txtISOI.config(state='disabled')
-            self.txtISOII.insert(0, notas_usuario[18])
-            self.txtISOII.config(state='disabled')
-            self.txtProgI.insert(0, notas_usuario[19])
-            self.txtProgI.config(state='disabled')
-            self.txtProgII.insert(0, notas_usuario[20])
-            self.txtProgII.config(state='disabled')
-            '''
+            self.noEscribirDatosCalificaciones()
         else:
             # Si no se encuentran datos del usuario, mostrar un mensaje de error
             messagebox.showerror("Error", "No se encontraron las notas del usuario.")
@@ -452,6 +410,103 @@ class InterfazAplicacion:
         self.txtDNI.config(state='normal')
         self.txtTelefono.config(state='normal')
 
+    def actualizarCalificaciones(self):
+        self.escribirDatosCalificaciones()
+        self.botonConfirmarCalificaciones.config(state=NORMAL)
+        self.botonActualizarCalificaciones.config(state=DISABLED)
+
+
+    def confirmarCalificaciones(self):
+        respuesta = messagebox.askyesno("Confirmación", "¿Estás seguro de que deseas confirmar las calificaciones?")
+        if respuesta:
+            perfil = Perfil()
+            #eda, si, logica, algebra, metodologia, ipoi, bbdd, sisinf, redesi, redesii, ssoo, pctr, teco, eco, arco, orco, ssdd, isoi, isoii, progi, progii
+            notas = [self.txtEDA.get(), self.txtSI.get(), self.txtLogica.get(), self.txtAlgebra.get(), self.txtMetodologia.get(), self.txtIPOI.get(), self.txtBBDDTI.get(), self.txtSisInf.get(), self.txtRedesI.get(), self.txtRedesII.get(), self.txtSSOO.get(), self.txtPCTR.get(), self.txtTECO.get(), self.txtECO.get(), self.txtARCO.get(), self.txtORCO.get(), self.txtSSDD.get(), self.txtISOI.get(), self.txtISOII.get(), self.txtProgI.get(), self.txtProgII.get()]
+            exito, mensaje = perfil.actualizar_calificaciones(self.txtLogin.get(), notas)
+            if exito:
+                messagebox.showinfo("Actualización exitosa", mensaje)
+
+            else:
+                messagebox.showerror("Actualización fallida", mensaje)
+            self.initMenuCalificaciones()
+            self.noEscribirDatosCalificaciones()
+
+        else:
+            self.botonActualizarCalificaciones.config(state=NORMAL)
+            self.botonConfirmarCalificaciones.config(state=DISABLED)
+            self.noEscribirDatosCalificaciones()
+
+    def noEscribirDatosCalificaciones(self):
+        self.txtEDA.config(state='disabled')
+        self.txtSI.config(state='disabled')
+        self.txtLogica.config(state='disabled')
+        self.txtAlgebra.config(state='disabled')
+        self.txtMetodologia.config(state='disabled')
+        self.txtIPOI.config(state='disabled')
+        self.txtBBDDTI.config(state='disabled')
+        self.txtSisInf.config(state='disabled')
+        self.txtRedesI.config(state='disabled')
+        self.txtRedesII.config(state='disabled')
+        self.txtSSOO.config(state='disabled')
+        self.txtPCTR.config(state='disabled')
+        self.txtTECO.config(state='disabled')
+        self.txtECO.config(state='disabled')
+        self.txtARCO.config(state='disabled')
+        self.txtORCO.config(state='disabled')
+        self.txtSSDD.config(state='disabled')
+        self.txtISOI.config(state='disabled')
+        self.txtISOII.config(state='disabled')
+        self.txtProgI.config(state='disabled')
+        self.txtProgII.config(state='disabled')
+        self.txtBBDDIngSoftware.config(state='disabled')
+
+    def escribirDatosCalificaciones(self):
+        self.txtEDA.config(state='normal')
+        self.txtSI.config(state='normal')
+        self.txtLogica.config(state='normal')
+        self.txtAlgebra.config(state='normal')
+        self.txtMetodologia.config(state='normal')
+        self.txtIPOI.config(state='normal')
+        self.txtBBDDTI.config(state='normal')
+        self.txtSisInf.config(state='normal')
+        self.txtRedesI.config(state='normal')
+        self.txtRedesII.config(state='normal')
+        self.txtSSOO.config(state='normal')
+        self.txtPCTR.config(state='normal')
+        self.txtTECO.config(state='normal')
+        self.txtECO.config(state='normal')
+        self.txtARCO.config(state='normal')
+        self.txtORCO.config(state='normal')
+        self.txtSSDD.config(state='normal')
+        self.txtISOI.config(state='normal')
+        self.txtISOII.config(state='normal')
+        self.txtProgI.config(state='normal')
+        self.txtProgII.config(state='normal')
+        self.txtBBDDIngSoftware.config(state='normal')
+
+    def limpiarCamposCalificaciones(self):
+        self.txtEDA.delete(0, END)
+        self.txtSI.delete(0, END)
+        self.txtLogica.delete(0, END)
+        self.txtAlgebra.delete(0, END)
+        self.txtMetodologia.delete(0, END)
+        self.txtIPOI.delete(0, END)
+        self.txtBBDDTI.delete(0, END)
+        self.txtSisInf.delete(0, END)
+        self.txtRedesI.delete(0, END)
+        self.txtRedesII.delete(0, END)
+        self.txtSSOO.delete(0, END)
+        self.txtPCTR.delete(0, END)
+        self.txtTECO.delete(0, END)
+        self.txtECO.delete(0, END)
+        self.txtARCO.delete(0, END)
+        self.txtORCO.delete(0, END)
+        self.txtSSDD.delete(0, END)
+        self.txtISOI.delete(0, END)
+        self.txtISOII.delete(0, END)
+        self.txtProgI.delete(0, END)
+        self.txtProgII.delete(0, END)
+        self.txtBBDDIngSoftware.delete(0, END)
 
     def limpiarCamposRegistro(self):
         self.txtLoginRegistro.delete(0, END)

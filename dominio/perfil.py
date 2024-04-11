@@ -51,6 +51,26 @@ class Perfil:
             return None
         finally:
             self.conn.close()
+    
+    def actualizar_calificaciones(self, usuario, notas):
+        try:
+            # Buscar el dni del usuario
+            self.cursor.execute('SELECT dni FROM Usuarios WHERE username=?', (usuario,))
+            dni = self.cursor.fetchone()
+            
+            # Convertir las notas de formato string a float y reemplazar comas por puntos
+            notas_float = [float(nota.replace(',', '.')) for nota in notas]
+            
+            # Actualizar las calificaciones del usuario en la base de datos
+            self.cursor.execute('UPDATE Notas SET eda=?, si=?, logica=?, algebra=?, metodologia=?, ipoi=?, bbdd=?, sisinf=?, redesi=?, redesii=?, ssoo=?, pctr=?, teco=?, eco=?, arco=?, orco=?, ssdd=?, isoi=?, isoii=?, progi=?, progii=? WHERE dni=?', notas_float + [dni[0],])
+            self.conn.commit()
+            return True, "Calificaciones actualizadas exitosamente."
+        except Exception as e:
+            return False, f"No se pudieron actualizar las calificaciones: {e}"
+        finally:
+            self.conn.close()
+
+
     '''
     def obtener_gustos(self, usuario):
         try:
