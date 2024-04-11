@@ -33,7 +33,11 @@ class cargarBBDDRespuestas:
 
         # Insertar las respuestas de ejemplo para el usuario con DNI '06297500P'
         respuestas_ejemplo_06297500P = [
-            ('06297500P', 'A', 'B', 'C', 'D', 'A', 'B', 'C', 'D', 'A'),
+            ('06297500P', 'a) Desarrollo de software y sistemas.', 'b) Programación de sistemas y tiempo real.',
+              'c) Análisis y manipulación de grandes volúmenes de datos.', 'd) Creación de interfaces de usuario.',
+                'a) Programación orientada a objetos y desarrollo de aplicaciones.', 'a) Desarrollo de software para diferentes plataformas y aplicaciones.',
+                  'b) Profundizar en el funcionamiento interno de los sistemas informáticos.', 'b) Investigación y diseño de nuevas arquitecturas de computadoras.',
+                    'a) Crear soluciones intuitivas y eficientes para usuarios finales.'),
         ]
 
         # Insertar las respuestas de ejemplo para el usuario '06297500P'
@@ -43,7 +47,11 @@ class cargarBBDDRespuestas:
 
         # Insertar las respuestas de ejemplo para el usuario con DNI '05970690M'
         respuestas_ejemplo_05970690M = [
-            ('05970690M', 'B', 'C', 'D', 'A', 'B', 'C', 'D', 'A', 'B'),
+            ('05970690M', 'd) Gestión y diseño de redes de computadores.', 'd) Diseño y configuración de redes informáticas.',
+              'd) Configuración y administración de redes y sistemas de información.', 'd) Creación de interfaces de usuario.',
+                'd) Configuración y administración de redes y sistemas de información.', 'a) Desarrollo de software para diferentes plataformas y aplicaciones.',
+                  'a) Convertirme en un desarrollador de software altamente competente.', 'b) Investigación y diseño de nuevas arquitecturas de computadoras.',
+                    'c) Abordar problemas de análisis de datos para obtener información significativa.'),
         ]
 
         # Insertar las respuestas de ejemplo para el usuario '05970690M'
