@@ -81,6 +81,8 @@ class InterfazAplicacion:
         #botones del perfil
         self.botonCambiarContrasena = Button(self.framePerfilDatos, text="Cambiar contraseña", fg="black", width=25, command=self.initMenuCambiarContrasena)
         self.botonCambiarContrasena.place(x=312 ,y=550)
+        self.botonCerrarSesion = Button(self.framePerfilDatos, text="Cerrar sesión", fg="black", width=25, command=self.initMenuLogin)
+        self.botonCerrarSesion.place(x=50 ,y=550)
 
         self.botonCalificaciones = Button(self.framePerfil, text="Calificaciones", fg="black", width=25, command=self.initMenuCalificaciones)
         self.botonCalificaciones.place(x=620 ,y=100)
@@ -497,6 +499,13 @@ class InterfazAplicacion:
         self.frameCalificaciones.place_forget()
         self.frameGustos.place_forget()
         self.frameFormulario.place_forget()
+        self.escribirDatosPerfil()
+        self.escribirDatosCalificaciones()
+        self.limpiarCamposCalificaciones()
+        self.limpiarCamposGustos()
+        self.limpiarCamposPerfil()
+        self.limpiarCamposRegistro()
+        self.limpiarCamposLogin()
     
     def initMenuPerfil(self):
         self.framePerfil.place(x=0, y=0)
@@ -608,25 +617,27 @@ class InterfazAplicacion:
             self.txtContrasena.delete(0, END)
 
     def registrarUsuario(self):
-        usuario = self.txtLoginRegistro.get()
-        contrasena = self.txtContrasenaRegistro.get()
-        nombre = self.txtNombreRegistro.get()
-        apellido = self.txtApellidoRegistro.get()
-        dni = self.txtDNIRegistro.get()
-        telefono = self.txtTelefonoRegistro.get()
-        registro = Registro()
-        # Verificar si algún campo está vacío
-        if not (usuario and contrasena and nombre and apellido and dni and telefono):
-            messagebox.showerror("Campos incompletos", "Debes completar todos los campos")
-            return
-        exito, mensaje = registro.registrar_usuario(dni, usuario, contrasena, nombre, apellido, telefono)
-        if exito:
-            messagebox.showinfo("Registro exitoso", mensaje)
-            self.initMenuLogin()
-        else:
-            messagebox.showerror("Registro fallido", mensaje)
-            # Limpiar el contenido del campo de contraseña si el registro falla
-            self.limpiarCamposRegistro()
+        respuesta = messagebox.askyesno("Confirmación", "¿Estás seguro de que deseas confirmar el registro?")
+        if respuesta:
+            usuario = self.txtLoginRegistro.get()
+            contrasena = self.txtContrasenaRegistro.get()
+            nombre = self.txtNombreRegistro.get()
+            apellido = self.txtApellidoRegistro.get()
+            dni = self.txtDNIRegistro.get()
+            telefono = self.txtTelefonoRegistro.get()
+            registro = Registro()
+            # Verificar si algún campo está vacío
+            if not (usuario and contrasena and nombre and apellido and dni and telefono):
+                messagebox.showerror("Campos incompletos", "Debes completar todos los campos")
+                return
+            exito, mensaje = registro.registrar_usuario(dni, usuario, contrasena, nombre, apellido, telefono)
+            if exito:
+                messagebox.showinfo("Registro exitoso", mensaje)
+                self.initMenuLogin()
+            else:
+                messagebox.showerror("Registro fallido", mensaje)
+                # Limpiar el contenido del campo de contraseña si el registro falla
+                self.limpiarCamposRegistro()
 
     def actualizarCalificaciones(self):
         self.escribirDatosCalificaciones()
@@ -635,7 +646,7 @@ class InterfazAplicacion:
 
 
     def confirmarCalificaciones(self):
-        respuesta = messagebox.askyesno("Confirmación", "¿Estás seguro de que deseas confirmar las calificaciones?")
+        respuesta = messagebox.askyesno("Confirmación", "¿Estás seguro de que deseas confirmar la actualización de las calificaciones?")
         if respuesta:
             perfil = Perfil()
             #eda, si, logica, algebra, metodologia, ipoi, bbdd, sisinf, redesi, redesii, ssoo, pctr, teco, eco, arco, orco, ssdd, isoi, isoii, progi, progii
@@ -733,11 +744,26 @@ class InterfazAplicacion:
         self.txtDNI.delete(0, END)
         self.txtTelefono.delete(0, END)
     
+    def limpiarCamposGustos(self):
+        self.txtP1.delete(0, END)
+        self.txtP2.delete(0, END)
+        self.txtP3.delete(0, END)
+        self.txtP4.delete(0, END)
+        self.txtP5.delete(0, END)
+        self.txtP6.delete(0, END)
+        self.txtP7.delete(0, END)
+        self.txtP8.delete(0, END)
+        self.txtP9.delete(0, END)
+
     def limpiarCamposPerfil(self):
         self.txtNombre.delete(0, END)
         self.txtApellido.delete(0, END)
         self.txtDNI.delete(0, END)
         self.txtTelefono.delete(0, END)
+
+    def limpiarCamposLogin(self):
+        self.txtLogin.delete(0, END)
+        self.txtContrasena.delete(0, END)
 
     def comboboxInicio0(self):
         self.comboboxP1.current(0)
@@ -750,5 +776,17 @@ class InterfazAplicacion:
         self.comboboxP8.current(0)
         self.comboboxP9.current(0)
         self.comboboxP1.focus_set()
+
+    def escribirDatosPerfil(self):
+        self.txtNombre.config(state='normal')
+        self.txtApellido.config(state='normal')
+        self.txtDNI.config(state='normal')
+        self.txtTelefono.config(state='normal')
+    
+    def noEscribirDatosPerfil(self):
+        self.txtNombre.config(state='disabled')
+        self.txtApellido.config(state='disabled')
+        self.txtDNI.config(state='disabled')
+        self.txtTelefono.config(state='disabled')
 
 
