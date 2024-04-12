@@ -1,6 +1,8 @@
 from tkinter import *
 from tkinter import PhotoImage, messagebox
 from tkinter.ttk import Combobox
+from reportlab.lib.pagesizes import letter
+from reportlab.pdfgen import canvas
 from presentacion.InterfazCambiarContrasena import InterfazCambiarContrasena
 from dominio.login import Login
 from dominio.registro import Registro
@@ -86,10 +88,12 @@ class InterfazAplicacion:
 
         self.botonCalificaciones = Button(self.framePerfil, text="Calificaciones", fg="black", width=25, command=self.initMenuCalificaciones)
         self.botonCalificaciones.place(x=620 ,y=100)
-        self.botonGustos = Button(self.framePerfil, text="Gustos", fg="black", width=25, command=self.initMenuGustos)
+        self.botonGustos = Button(self.framePerfil, text="Ver gustos", fg="black", width=25, command=self.initMenuGustos)
         self.botonGustos.place(x=620 ,y=150)
         self.botonFormulario = Button(self.framePerfil, text="Formulario", fg="black", width=25, command=self.initMenuFormulario)
-        self.botonFormulario.place(x=620 ,y=650)
+        self.botonFormulario.place(x=620 ,y=600)
+        self.botonObtenerRecomendaciones = Button(self.framePerfil, text="Obtener recomendaciones", fg="black", width=25, command=self.obtenerRecomendaciones)
+        self.botonObtenerRecomendaciones.place(x=620 ,y=650)
 
         #labels del perfil        
         self.lblUsuario = Label(self.framePerfilDatos, text="Usuario", font=("Comic Sans",20), fg="white", background="#81C2AE")
@@ -406,7 +410,7 @@ class InterfazAplicacion:
         #botones de formulario
         self.botonVolverFormulario = Button(self.frameFormulario, text="Volver al perfil", fg="black", width=25, command=self.initMenuPerfil)
         self.botonVolverFormulario.place(x=598 ,y=742)
-        self.botonCambiosFormulario = Button(self.frameFormulario, text="Confirmar Cambios", fg="black", width=25)
+        self.botonCambiosFormulario = Button(self.frameFormulario, text="Confirmar Cambios", fg="black", width=25, command=self.confirmarFormulario)
         self.botonCambiosFormulario.place(x=370 ,y=742)
 
         #labels de formulario
@@ -516,7 +520,7 @@ class InterfazAplicacion:
         self.frameCalificaciones.place_forget()
         self.frameGustos.place_forget()
         self.frameFormulario.place_forget()
-
+        self.escribirDatosPerfil()
 
         # Crear una instancia de la clase Perfil
         perfil = Perfil()
@@ -529,16 +533,10 @@ class InterfazAplicacion:
 
             # Establecer los datos en los Entry correspondientes
             self.txtNombre.insert(0, datos_usuario[0])
-            self.txtNombre.config(state='disabled')
-
             self.txtApellido.insert(0, datos_usuario[1])
-            self.txtApellido.config(state='disabled')
-
             self.txtDNI.insert(0, datos_usuario[3])
-            self.txtDNI.config(state='disabled')
-
             self.txtTelefono.insert(0, datos_usuario[2])
-            self.txtTelefono.config(state='disabled')
+            self.noEscribirDatosPerfil()
         else:
             # Si no se encuentran datos del usuario, mostrar un mensaje de error
             messagebox.showerror("Error", "No se encontraron datos del usuario.")
@@ -680,6 +678,23 @@ class InterfazAplicacion:
         else:
             self.initMenuCalificaciones()
             self.noEscribirDatosCalificaciones()
+
+    def confirmarFormulario(self):
+        respuesta = messagebox.askyesno("Confirmación", "¿Estás seguro de que deseas confirmar las respuestas del formulario?")
+        if respuesta:
+            perfil = Perfil()
+            respuestas = [self.comboboxP1.get(), self.comboboxP2.get(), self.comboboxP3.get(), self.comboboxP4.get(), self.comboboxP5.get(), self.comboboxP6.get(), self.comboboxP7.get(), self.comboboxP8.get(), self.comboboxP9.get()]
+            exito, mensaje = perfil.actualizar_formulario(self.txtLogin.get(), respuestas)
+            if exito:
+                messagebox.showinfo("Realización exitosa", mensaje)
+            else:
+                messagebox.showerror("Realización fallida", mensaje)
+            self.initMenuFormulario()
+        else:
+            self.initMenuFormulario()
+
+    def obtenerRecomendaciones(self):
+        print("HOLA")
 
     def noEscribirDatosCalificaciones(self):
         self.txtEDA.config(state='disabled')
@@ -827,5 +842,7 @@ class InterfazAplicacion:
         self.txtP7.config(state='disabled')
         self.txtP8.config(state='disabled')
         self.txtP9.config(state='disabled')
+
+    
 
 

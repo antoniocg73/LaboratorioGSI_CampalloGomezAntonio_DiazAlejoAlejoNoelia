@@ -98,6 +98,30 @@ class Perfil:
             self.cursor.execute('SELECT dni FROM Usuarios WHERE username=?', (usuario,))
             dni = self.cursor.fetchone()
             return dni
+    
+    def actualizar_formulario(self, usuario, respuestas):
+        try:
+            # Buscar el dni del usuario
+            dni = self.obtener_dni(usuario)
+            
+            # Verificar si el usuario tiene un registro en la tabla Respuestas
+            self.cursor.execute('SELECT * FROM Respuestas WHERE dni=?', [dni[0]])
+            registro_existente = self.cursor.fetchone()
+            
+            if registro_existente:
+                # Actualizar las respuestas del usuario en la base de datos
+                self.cursor.execute('UPDATE Respuestas SET pregunta1=?, pregunta2=?, pregunta3=?, pregunta4=?, pregunta5=?, pregunta6=?, pregunta7=?, pregunta8=?, pregunta9=? WHERE dni=?', respuestas + [dni[0],])
+            else:
+                # Insertar las respuestas del usuario en la base de datos
+                self.cursor.execute('INSERT INTO Respuestas (pregunta1, pregunta2, pregunta3, pregunta4, pregunta5, pregunta6, pregunta7, pregunta8, pregunta9, dni) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', respuestas + [dni[0],])
+            
+            self.conn.commit()
+            return True, "Formulario realizado exitosamente."
+        except Exception as e:
+            return False, f"No se pudo realizar el formulario: {e}"
+        finally:
+            self.conn.close()
+
     '''
     def obtener_gustos(self, usuario):
         try:
