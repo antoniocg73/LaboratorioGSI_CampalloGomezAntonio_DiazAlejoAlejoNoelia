@@ -501,11 +501,13 @@ class InterfazAplicacion:
         self.frameFormulario.place_forget()
         self.escribirDatosPerfil()
         self.escribirDatosCalificaciones()
+        self.escribirGustos()
         self.limpiarCamposCalificaciones()
         self.limpiarCamposGustos()
         self.limpiarCamposPerfil()
         self.limpiarCamposRegistro()
         self.limpiarCamposLogin()
+        
     
     def initMenuPerfil(self):
         self.framePerfil.place(x=0, y=0)
@@ -594,6 +596,21 @@ class InterfazAplicacion:
         self.frameRegistrar.place_forget()
         self.frameCalificaciones.place_forget()
         self.frameFormulario.place_forget()
+        self.escribirGustos()
+        # Crear una instancia de la clase Perfil
+        perfil = Perfil()
+        # Obtener los datos del usuario
+        gustos_usuario = perfil.obtener_gustos(self.txtLogin.get())
+        if gustos_usuario:
+            self.limpiarCamposGustos()
+            #pregunta1, pregunta2, pregunta3, pregunta4, pregunta5, pregunta6, pregunta7, pregunta8, pregunta9
+            campos = [self.txtP1, self.txtP2, self.txtP3, self.txtP4, self.txtP5, self.txtP6, self.txtP7, self.txtP8, self.txtP9]
+            for i in range(len(gustos_usuario)):
+                campos[i].insert(0, gustos_usuario[i])
+            self.noEscribirGustos()
+        else:
+            # Si no se encuentran datos del usuario, mostrar un mensaje de error
+            messagebox.showerror("Error", "No se encontraron los gustos del usuario.")
 
     def initMenuFormulario(self):
         self.frameFormulario.place(x=0, y=0)
@@ -788,5 +805,27 @@ class InterfazAplicacion:
         self.txtApellido.config(state='disabled')
         self.txtDNI.config(state='disabled')
         self.txtTelefono.config(state='disabled')
+
+    def escribirGustos(self):
+        self.txtP1.config(state='normal')
+        self.txtP2.config(state='normal')
+        self.txtP3.config(state='normal')
+        self.txtP4.config(state='normal')
+        self.txtP5.config(state='normal')
+        self.txtP6.config(state='normal')
+        self.txtP7.config(state='normal')
+        self.txtP8.config(state='normal')
+        self.txtP9.config(state='normal')
+
+    def noEscribirGustos(self):
+        self.txtP1.config(state='disabled')
+        self.txtP2.config(state='disabled')
+        self.txtP3.config(state='disabled')
+        self.txtP4.config(state='disabled')
+        self.txtP5.config(state='disabled')
+        self.txtP6.config(state='disabled')
+        self.txtP7.config(state='disabled')
+        self.txtP8.config(state='disabled')
+        self.txtP9.config(state='disabled')
 
 

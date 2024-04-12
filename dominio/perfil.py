@@ -38,8 +38,7 @@ class Perfil:
     def obtener_calificaciones(self, usuario):
         try:
             #Buscar el dni del usuario
-            self.cursor.execute('SELECT dni FROM Usuarios WHERE username=?', (usuario,))
-            dni = self.cursor.fetchone()
+            dni = self.obtener_dni(usuario)
             # Buscar en la base de datos las calificaciones del usuario
             self.cursor.execute('SELECT  eda, si, logica, algebra, metodologia, ipoi, bbdd, sisinf, redesi, redesii, ssoo, pctr, teco, eco, arco, orco, ssdd, isoi, isoii, progi, progii FROM Notas WHERE dni=?', (dni[0],))
             resultado = self.cursor.fetchall()
@@ -55,8 +54,7 @@ class Perfil:
     def actualizar_calificaciones(self, usuario, notas):
         try:
             # Buscar el dni del usuario
-            self.cursor.execute('SELECT dni FROM Usuarios WHERE username=?', (usuario,))
-            dni = self.cursor.fetchone()
+            dni = self.obtener_dni(usuario)
             
             # Convertir las notas de formato string a float y reemplazar comas por puntos
             notas_float = [float(nota.replace(',', '.')) for nota in notas]
@@ -79,8 +77,27 @@ class Perfil:
         finally:
             self.conn.close()
 
-
-
+    def obtener_gustos(self, usuario):
+        try:
+            # Buscar el dni del usuario
+            dni = self.obtener_dni(usuario)
+            # Buscar en la base de datos los gustos del usuario
+            self.cursor.execute('SELECT pregunta1, pregunta2, pregunta3, pregunta4, pregunta5, pregunta6, pregunta7, pregunta8, pregunta9 FROM Respuestas WHERE dni=?', (dni[0],))
+            resultado = self.cursor.fetchall()
+            if resultado:
+                resultado = list(resultado[0])
+            return resultado
+        except Exception as e:
+            print("Error al obtener los gustos del usuario:", e)
+            return None
+        finally:
+            self.conn.close()
+    
+    def obtener_dni(self, usuario):
+            # Buscar el dni del usuario
+            self.cursor.execute('SELECT dni FROM Usuarios WHERE username=?', (usuario,))
+            dni = self.cursor.fetchone()
+            return dni
     '''
     def obtener_gustos(self, usuario):
         try:
