@@ -580,7 +580,7 @@ class InterfazAplicacion:
             messagebox.showerror("Error", "No se encontraron las notas del usuario.")
 
     def initMenuCambiarContrasena(self):
-        InterfazCambiarContrasena(self.txtLogin.get())
+        InterfazCambiarContrasena(self.txtLogin.get(), self.ventana)
 
     def initMenuGustos(self):
         self.frameGustos.place(x=0, y=0)

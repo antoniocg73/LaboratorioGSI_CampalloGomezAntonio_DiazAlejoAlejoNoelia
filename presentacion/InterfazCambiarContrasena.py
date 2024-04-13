@@ -3,11 +3,16 @@ from tkinter import PhotoImage, messagebox
 from dominio.perfil import Perfil
 class InterfazCambiarContrasena:
 
-    def __init__(self, nombreUsuario):
+    def __init__(self, nombreUsuario, ventanaAnterior):
+        #Definición ventana anterior
+        self.ventanaAnterior = ventanaAnterior
+        self.ventanaAnterior.withdraw()
         #Definición ventana Cambiar Contraseña
         self.ventana = Tk()
         self.ventana.title("Cambiar contraseña")
         self.ventana.resizable(False, False)
+        self.ventana.protocol("WM_DELETE_WINDOW", self.cerrar_ventana)
+
         self.nombreUsuario = nombreUsuario
 
         #Definición frame Cambiar Contraseña
@@ -47,8 +52,14 @@ class InterfazCambiarContrasena:
                 
             else:
                 messagebox.showerror("Error", mensaje)
+        self.ventanaAnterior.update()
+        self.ventanaAnterior.deiconify()
         self.ventana.destroy()
 
+    def cerrar_ventana(self):
+        self.ventanaAnterior.update()
+        self.ventanaAnterior.deiconify()
+        self.ventana.destroy()
 
 
     
