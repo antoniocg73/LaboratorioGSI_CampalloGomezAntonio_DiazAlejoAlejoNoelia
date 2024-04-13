@@ -25,7 +25,10 @@ class InterfazAplicacion:
         self.ventana.title("ESI-Recommendations")
         self.ventana.geometry("820x1000")
         self.ventana.resizable(False, False)
-
+        # Inicializar la ventana secundaria
+        self.ventana_cambiar_contrasena = None
+        # Configurar protocolo para cerrar la ventana principal
+        self.ventana.protocol("WM_DELETE_WINDOW", self.on_close)
          #Definición frame Login
         self.frameLogin = Frame(height=920, width=850, bg = '#81C2AE')
         self.frameLogin.place(x=0, y=0)
@@ -492,7 +495,6 @@ class InterfazAplicacion:
 
 
 
-
         self.initMenuLogin()
         self.ventana.mainloop()
 
@@ -581,7 +583,7 @@ class InterfazAplicacion:
             messagebox.showerror("Error", "No se encontraron las notas del usuario.")
 
     def initMenuCambiarContrasena(self):
-        InterfazCambiarContrasena(self.txtLogin.get())
+        self.ventana_cambiar_contrasena = InterfazCambiarContrasena(self.txtLogin.get())
         self.txtNombre.config(state='normal')
         self.txtApellido.config(state='normal')
         self.txtDNI.config(state='normal')
@@ -887,6 +889,15 @@ class InterfazAplicacion:
         self.txtP7.config(state='disabled')
         self.txtP8.config(state='disabled')
         self.txtP9.config(state='disabled')
+
+    def on_close(self):
+    # Si la ventana_cambiar_contrasena está abierta, ciérrala
+        if self.ventana_cambiar_contrasena is not None:
+            self.ventana_cambiar_contrasena.destroy()
+            self.ventana_cambiar_contrasena = None
+
+        # Cierra la ventana principal
+        self.ventana.destroy()
 
     
 
