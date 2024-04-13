@@ -694,7 +694,52 @@ class InterfazAplicacion:
             self.initMenuFormulario()
 
     def obtenerRecomendaciones(self):
-        print("HOLA")
+        respuesta = messagebox.askyesno("Confirmación", "Vas a proceder a obtener tu recomendación, esto no quiere decir que sea tu decisión, esto solo se toma de manera orientativo, ¿estás listo?")
+        if respuesta:
+            self.initMenuCalificaciones()
+            self.initMenuGustos()
+            perfil = Perfil()
+            notas_computacion, notas_computadores, notas_ing_software, notas_ti = self.obtenerNotas()
+            recomendacion = perfil.obtener_recomendaciones(self.txtLogin.get(), notas_computacion, notas_computadores, notas_ing_software, notas_ti)
+        else:
+            self.initMenuPerfil()
+
+    def obtenerNotas(self):
+        notas_computacion = {
+            float(self.txtEDA.get() or 0),
+            float(self.txtSI.get() or 0),
+            float(self.txtLogica.get() or 0),
+            float(self.txtAlgebra.get() or 0),
+            float(self.txtMetodologia.get() or 0)
+        }
+
+        notas_computadores = {
+            float(self.txtSSOO.get() or 0),
+            float(self.txtPCTR.get() or 0),
+            float(self.txtTECO.get() or 0),
+            float(self.txtECO.get() or 0),
+            float(self.txtORCO.get() or 0),
+            float(self.txtARCO.get() or 0),
+            float(self.txtSSDD.get() or 0)
+        }
+
+        notas_ing_software = {
+            float(self.txtISOI.get() or 0),
+            float(self.txtISOII.get() or 0),
+            float(self.txtBBDDIngSoftware.get() or 0),
+            float(self.txtProgI.get() or 0),
+            float(self.txtProgII.get() or 0)
+        }
+
+        notas_ti = {
+            float(self.txtIPOI.get() or 0),
+            float(self.txtBBDDTI.get() or 0),
+            float(self.txtSisInf.get() or 0),
+            float(self.txtRedesI.get() or 0),
+            float(self.txtRedesII.get() or 0)
+        }
+        return notas_computacion, notas_computadores, notas_ing_software, notas_ti
+
 
     def noEscribirDatosCalificaciones(self):
         self.txtEDA.config(state='disabled')
