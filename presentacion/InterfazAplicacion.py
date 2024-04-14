@@ -693,9 +693,26 @@ class InterfazAplicacion:
         if respuesta:
             self.initMenuCalificaciones()
             self.initMenuGustos()
+            self.initMenuPerfil()
             perfil = Perfil()
             notas_computacion, notas_computadores, notas_ing_software, notas_ti = self.obtenerNotas()
             recomendacion = perfil.obtener_recomendaciones(self.txtLogin.get(), notas_computacion, notas_computadores, notas_ing_software, notas_ti)
+            
+            # Inicializar variables para el máximo valor y su categoría
+            max_valor = None
+            max_categoria = None
+            
+            # Iterar sobre los elementos del diccionario
+            for categoria, valor in recomendacion.items():
+                # Si es el primer valor o si encontramos uno mayor
+                if max_valor is None or valor > max_valor:
+                    # Actualizar el máximo valor y su categoría correspondiente
+                    max_valor = valor
+                    max_categoria = categoria
+            
+            # Generar PDF
+            self.generar_pdf(max_valor, max_categoria, self.txtLogin.get())
+
         else:
             self.initMenuPerfil()
 
@@ -735,6 +752,85 @@ class InterfazAplicacion:
         }
         return notas_computacion, notas_computadores, notas_ing_software, notas_ti
 
+    def generar_pdf(self, max_valor, max_categoria, nombre_usuario):
+        # Nombre del archivo PDF
+        nombre_archivo = f"recomendacion_{nombre_usuario}.pdf"
+
+        # Crear el objeto canvas
+        c = canvas.Canvas(nombre_archivo, pagesize=letter)
+
+        # Agregar el nombre del usuario al contenido del PDF
+        c.drawString(100, 750, "Nombre del usuario: " + nombre_usuario)
+        # Definir el texto base a escribir en el PDF
+        texto_base = f"La recomendación con mayor valor es: {max_valor} en la categoría {max_categoria}"
+
+        # Configurar la fuente y el tamaño del texto
+        c.setFont("Helvetica", 12)
+
+        # Escribir el texto base en el PDF
+        c.drawString(100, 700, texto_base)
+
+        # Información adicional por intensificación
+        informacion_adicional = {
+            'Computacion': [
+                "Asignaturas de la intensificación:",
+                "42342 Teoría de Autómatas y Computación",
+                "42343 Programación Declarativa",
+                "42344 Diseño de Algoritmos",
+                "42345 Sistemas Basados en el Conocimiento",
+                "42349 Procesadores de Lenguajes",
+                "42346 Sistemas Multiagentes",
+                "42347 Diseño de Sistemas Interactivos",
+                "42348 Minería de Datos"
+            ],
+            'ISO': [
+                "Asignaturas de la intensificación:",
+                "42326 Ingeniería de Requisitos",
+                "42327 Diseño de Software",
+                "42330 Procesos de Ingeniería del Software",
+                "42331 Calidad de Sistemas Software",
+                "42332 Gestión de Proyectos Software",
+                "42328 Desarrollo de Bases de Datos",
+                "42329 Sistemas de Información Empresariales",
+                "42333 Seguridad de Sistemas Software"
+            ],
+            'Computadores': [
+                "Asignaturas de la intensificación:",
+                "42338 Computadores Avanzados",
+                "42334 Sistemas Operativos II",
+                "42339 Sistemas Empotrados",
+                "42335 Diseño de sistemas basados en Microprocesador",
+                "42340 Seguridad en Redes",
+                "42341 Planificación e Integración de Sistemas y Servicios",
+                "42336 Gestión y Administración de Redes",
+                "42337 Diseño de Infraestructura de Red"
+            ],
+            'TI': [
+                "Asignaturas de la intensificación:",
+                "42350 Integración de Sistemas Informáticos",
+                "42351 Interacción Persona-Ordenador II",
+                "42352 Diseño y Gestión de Redes",
+                "42353 Gestión de Sistemas de Información",
+                "42354 Tecnologías y Sistemas Web",
+                "42355 Comercio Electrónico",
+                "42356 Multimedia",
+                "42357 Seguridad en Sistemas Informáticos"
+            ]
+        }
+
+        # Obtener la información adicional según la categoría
+        if max_categoria in informacion_adicional:
+            # Escribir la información adicional en el PDF
+            y_position = 670
+            for linea in informacion_adicional[max_categoria]:
+                c.drawString(100, y_position, linea)
+                y_position -= 20
+
+        # Finalizar el objeto canvas
+        c.save()
+
+        # Mostrar un mensaje de éxito
+        messagebox.showinfo("PDF generado", f"Se ha generado el PDF '{nombre_archivo}' con éxito.")
 
     def noEscribirDatosCalificaciones(self):
         self.txtEDA.config(state='disabled')
