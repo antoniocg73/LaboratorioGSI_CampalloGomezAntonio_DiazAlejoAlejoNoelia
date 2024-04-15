@@ -993,10 +993,10 @@ class InterfazAplicacion:
     def limpiarCamposRegistro(self):
         self.txtLoginRegistro.delete(0, END)
         self.txtContrasenaRegistro.delete(0, END)
-        self.txtNombre.delete(0, END)
-        self.txtApellido.delete(0, END)
-        self.txtDNI.delete(0, END)
-        self.txtTelefono.delete(0, END)
+        self.txtNombreRegistro.delete(0, END)
+        self.txtApellidoRegistro.delete(0, END)
+        self.txtDNIRegistro.delete(0, END)
+        self.txtTelefonoRegistro.delete(0, END)
     
     def limpiarCamposGustos(self):
         self.txtP1.delete(0, END)
