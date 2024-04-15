@@ -664,20 +664,51 @@ class InterfazAplicacion:
         respuesta = messagebox.askyesno("Confirmación", "¿Estás seguro de que deseas confirmar la actualización de las calificaciones?")
         if respuesta:
             perfil = Perfil()
-            #eda, si, logica, algebra, metodologia, ipoi, bbdd, sisinf, redesi, redesii, ssoo, pctr, teco, eco, arco, orco, ssdd, isoi, isoii, progi, progii
-            notas = [self.txtEDA.get(), self.txtSI.get(), self.txtLogica.get(), self.txtAlgebra.get(), self.txtMetodologia.get(), self.txtIPOI.get(), self.txtBBDDTI.get(), self.txtSisInf.get(), self.txtRedesI.get(), self.txtRedesII.get(), self.txtSSOO.get(), self.txtPCTR.get(), self.txtTECO.get(), self.txtECO.get(), self.txtARCO.get(), self.txtORCO.get(), self.txtSSDD.get(), self.txtISOI.get(), self.txtISOII.get(), self.txtProgI.get(), self.txtProgII.get()]
-            exito, mensaje = perfil.actualizar_calificaciones(self.txtLogin.get(), notas)
+            # Valores de los campos de entrada para las calificaciones
+            calificaciones = [
+                self.txtEDA.get(), self.txtSI.get(), self.txtLogica.get(), self.txtAlgebra.get(), self.txtMetodologia.get(),
+                self.txtIPOI.get(), self.txtBBDDTI.get(), self.txtSisInf.get(), self.txtRedesI.get(), self.txtRedesII.get(),
+                self.txtSSOO.get(), self.txtPCTR.get(), self.txtTECO.get(), self.txtECO.get(), self.txtARCO.get(), self.txtORCO.get(),
+                self.txtSSDD.get(), self.txtISOI.get(), self.txtISOII.get(), self.txtProgI.get(), self.txtProgII.get()
+            ]
+
+            if not self.validarEntradaBBDD(self.txtBBDDTI.get(), self.txtBBDDIngSoftware.get()):
+                messagebox.showerror("Error", "Las calificaciones de BBDD de TI y BBDD de Ingeniería del Software deben ser iguales.")
+                return
+            # Verificar que cada valor sea un número decimal válido
+            for calificacion in calificaciones:
+                if not self.validarEntrada(calificacion):
+                    messagebox.showerror("Error", "Solo se permiten números decimales en los campos de calificación.")
+                    self.initMenuCalificaciones()
+                    self.noEscribirDatosCalificaciones()
+                    return
+            # Si todas las calificaciones son válidas, proceder con la actualización
+            exito, mensaje = perfil.actualizar_calificaciones(self.txtLogin.get(), calificaciones)
             if exito:
                 messagebox.showinfo("Actualización exitosa", mensaje)
-
             else:
                 messagebox.showerror("Actualización fallida", mensaje)
             self.initMenuCalificaciones()
             self.noEscribirDatosCalificaciones()
-
         else:
             self.initMenuCalificaciones()
             self.noEscribirDatosCalificaciones()
+
+    def validarEntradaBBDD(self, entrada1, entrada2):
+        # Reemplazar comas por puntos para asegurar formato decimal válido
+        entrada1 = entrada1.replace(",", ".")
+        entrada2 = entrada2.replace(",", ".")
+        return bool(entrada1 == entrada2)
+
+
+    def validarEntrada(self, valor):
+        try:
+            # Intenta convertir la cadena a un número decimal
+            float(valor.replace(',', '.'))
+            return True
+        except ValueError:
+            # Si ocurre un error al intentar convertir, la cadena no es un número decimal válido
+            return False
 
     def confirmarFormulario(self):
         respuesta = messagebox.askyesno("Confirmación", "¿Estás seguro de que deseas confirmar las respuestas del formulario?")
@@ -721,7 +752,7 @@ class InterfazAplicacion:
                     max_categoria = categoria
             
             # Generar PDF
-            self.generar_pdf(max_valor, max_categoria, self.txtLogin.get())
+            self.generarPdf(max_valor, max_categoria, self.txtLogin.get())
 
         else:
             self.initMenuPerfil()
@@ -762,7 +793,7 @@ class InterfazAplicacion:
         }
         return notas_computacion, notas_computadores, notas_ing_software, notas_ti
 
-    def generar_pdf(self, max_valor, max_categoria, nombre_usuario):
+    def generarPdf(self, max_valor, max_categoria, nombre_usuario):
         # Obtener los estilos de muestra
         styles = getSampleStyleSheet()
 
