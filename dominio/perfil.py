@@ -1,5 +1,4 @@
 import sqlite3
-from unittest import result
 
 class Perfil:
     def __init__(self):
