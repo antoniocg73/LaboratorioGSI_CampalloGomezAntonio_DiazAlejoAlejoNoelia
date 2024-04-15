@@ -678,7 +678,7 @@ class InterfazAplicacion:
             # Verificar que cada valor sea un número decimal válido
             for calificacion in calificaciones:
                 if not self.validarEntrada(calificacion):
-                    messagebox.showerror("Error", "Solo se permiten números decimales en los campos de calificación.")
+                    messagebox.showerror("Error", "Solo se permiten números decimales en los campos de calificación y números entre el 0 y el 10 (ambos incluidos).")
                     self.initMenuCalificaciones()
                     self.noEscribirDatosCalificaciones()
                     return
@@ -704,8 +704,12 @@ class InterfazAplicacion:
     def validarEntrada(self, valor):
         try:
             # Intenta convertir la cadena a un número decimal
-            float(valor.replace(',', '.'))
-            return True
+            nota = float(valor.replace(',', '.'))
+            # Verificar si la nota está dentro del rango [0, 10]
+            if 0 <= nota <= 10:
+                return True
+            else:
+                return False
         except ValueError:
             # Si ocurre un error al intentar convertir, la cadena no es un número decimal válido
             return False
