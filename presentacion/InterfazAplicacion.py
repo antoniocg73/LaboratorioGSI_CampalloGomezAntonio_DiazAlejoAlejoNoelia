@@ -641,10 +641,32 @@ class InterfazAplicacion:
             dni = self.txtDNIRegistro.get()
             telefono = self.txtTelefonoRegistro.get()
             registro = Registro()
+
             # Verificar si algún campo está vacío
             if not (usuario and contrasena and nombre and apellido and dni and telefono):
                 messagebox.showerror("Campos incompletos", "Debes completar todos los campos")
                 return
+            
+            # Validar longitud de usuario y contraseña
+            if len(usuario) < 4 or len(contrasena) < 4:
+                messagebox.showerror("Error", "El nombre de usuario y la contraseña deben tener al menos 4 caracteres")
+                return
+
+            # Validar que nombre y apellido no contengan dígitos
+            if any(char.isdigit() for char in nombre) or any(char.isdigit() for char in apellido):
+                messagebox.showerror("Error", "El nombre y el apellido no pueden contener números")
+                return
+            
+            # Validar longitud del DNI y que contenga 8 dígitos y una letra
+            if len(dni) != 9 or not dni[:-1].isdigit() or not dni[-1].isalpha():
+                messagebox.showerror("Error", "El DNI debe tener 8 dígitos seguidos de una letra")
+                return
+
+            # Validar longitud del teléfono
+            if len(telefono) != 9 or not telefono.isdigit():
+                messagebox.showerror("Error", "El número de teléfono debe tener 9 dígitos")
+                return
+            
             exito, mensaje = registro.registrar_usuario(dni, usuario, contrasena, nombre, apellido, telefono)
             if exito:
                 messagebox.showinfo("Registro exitoso", mensaje)
