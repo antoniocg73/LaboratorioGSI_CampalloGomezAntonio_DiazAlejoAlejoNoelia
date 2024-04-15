@@ -38,23 +38,25 @@ class InterfazCambiarContrasena:
         self.ventana.mainloop()
 
     def cambiar_contrasena(self):
-        antigua = self.txtContrasenaAntigua.get()
-        nueva = self.txtContrasenaNueva.get()
-        perfil = Perfil()
-        if antigua == nueva:
-            messagebox.showerror("Error", "La contraseña nueva no puede ser igual a la antigua.")
-        elif len(nueva) < 4:
-            messagebox.showerror("Error", "La contraseña nueva debe tener al menos 4 caracteres.")
-        else:
-            resultado, mensaje = perfil.cambiar_contrasena(self.nombreUsuario, antigua, nueva)
-            if resultado:
-                messagebox.showinfo("Éxito", mensaje)
-                
+        respuesta = messagebox.askyesno("Confirmación", "¿Estás seguro de que deseas confirmar la actualización de las calificaciones?")
+        if respuesta:
+            antigua = self.txtContrasenaAntigua.get()
+            nueva = self.txtContrasenaNueva.get()
+            perfil = Perfil()
+            if antigua == nueva:
+                messagebox.showerror("Error", "La contraseña nueva no puede ser igual a la antigua.")
+            elif len(nueva) < 4:
+                messagebox.showerror("Error", "La contraseña nueva debe tener al menos 4 caracteres.")
             else:
-                messagebox.showerror("Error", mensaje)
-        self.ventanaAnterior.update()
-        self.ventanaAnterior.deiconify()
-        self.ventana.destroy()
+                resultado, mensaje = perfil.cambiar_contrasena(self.nombreUsuario, antigua, nueva)
+                if resultado:
+                    messagebox.showinfo("Éxito", mensaje)
+                    
+                else:
+                    messagebox.showerror("Error", mensaje)
+            self.ventanaAnterior.update()
+            self.ventanaAnterior.deiconify()
+            self.ventana.destroy()
 
     def cerrar_ventana(self):
         self.ventanaAnterior.update()
