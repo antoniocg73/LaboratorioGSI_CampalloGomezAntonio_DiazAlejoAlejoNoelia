@@ -38,7 +38,7 @@ class InterfazCambiarContrasena:
         self.ventana.mainloop()
 
     def cambiar_contrasena(self):
-        respuesta = messagebox.askyesno("Confirmación", "¿Estás seguro de que deseas confirmar la actualización de las calificaciones?")
+        respuesta = messagebox.askyesno("Confirmación", "¿Estás seguro de que deseas confirmar la actualización de la contraseña?")
         if respuesta:
             antigua = self.txtContrasenaAntigua.get()
             nueva = self.txtContrasenaNueva.get()
