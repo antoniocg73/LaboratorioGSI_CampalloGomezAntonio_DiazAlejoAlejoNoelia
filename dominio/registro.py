@@ -17,6 +17,11 @@ class Registro:
             if self.cursor.fetchone() is not None:
                 return False, "El DNI ya está registrado"    
             
+            #Verificar si el telefono ya está registrado
+            self.cursor.execute('SELECT * FROM Usuarios WHERE telefono=?', (telefono,))
+            if self.cursor.fetchone() is not None:
+                return False, "El telefono ya está registrado"
+
             # Verificar la longitud de la contraseña
             if len(password) < 4:
                 return False, "La contraseña debe tener al menos 4 caracteres"
