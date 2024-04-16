@@ -583,6 +583,7 @@ class InterfazAplicacion:
         else:
             # Si no se encuentran datos del usuario, mostrar un mensaje de error
             messagebox.showerror("Error", "No se encontraron las notas del usuario.")
+            self.noEscribirDatosCalificaciones()
 
     def initMenuCambiarContrasena(self):
         InterfazCambiarContrasena(self.txtLogin.get(), self.ventana)
@@ -639,12 +640,11 @@ class InterfazAplicacion:
             nombre = self.txtNombreRegistro.get()
             apellido = self.txtApellidoRegistro.get()
             dni = self.txtDNIRegistro.get()
-            dniMAYUS = dni[:-1] + dni[-1].upper()
             telefono = self.txtTelefonoRegistro.get()
             registro = Registro()
 
             # Verificar si algún campo está vacío
-            if not (usuario and contrasena and nombre and apellido and dniMAYUS and telefono):
+            if not (usuario and contrasena and nombre and apellido and dni and telefono):
                 messagebox.showerror("Campos incompletos", "Debes completar todos los campos")
                 return
             
@@ -657,7 +657,7 @@ class InterfazAplicacion:
             if any(char.isdigit() for char in nombre) or any(char.isdigit() for char in apellido):
                 messagebox.showerror("Error", "El nombre y el apellido no pueden contener números")
                 return
-            
+            dniMAYUS = dni[:-1] + dni[-1].upper()
             # Validar longitud del DNI y que contenga 8 dígitos y una letra
             if len(dniMAYUS) != 9 or not dniMAYUS[:-1].isdigit() or not dniMAYUS[-1].isalpha():
                 messagebox.showerror("Error", "El DNI debe tener 8 dígitos seguidos de una letra")
@@ -697,13 +697,15 @@ class InterfazAplicacion:
 
             if not self.validarEntradaBBDD(self.txtBBDDTI.get(), self.txtBBDDIngSoftware.get()):
                 messagebox.showerror("Error", "Las calificaciones de BBDD de TI y BBDD de Ingeniería del Software deben ser iguales.")
+                #self.initMenuCalificaciones()
+                #self.noEscribirDatosCalificaciones()
                 return
             # Verificar que cada valor sea un número decimal válido
             for calificacion in calificaciones:
                 if not self.validarEntrada(calificacion):
                     messagebox.showerror("Error", "Solo se permiten números decimales en los campos de calificación y números entre el 0 y el 10 (ambos incluidos).")
-                    self.initMenuCalificaciones()
-                    self.noEscribirDatosCalificaciones()
+                    #self.initMenuCalificaciones()
+                    #self.noEscribirDatosCalificaciones()
                     return
             # Si todas las calificaciones son válidas, proceder con la actualización
             exito, mensaje = perfil.actualizar_calificaciones(self.txtLogin.get(), calificaciones)
