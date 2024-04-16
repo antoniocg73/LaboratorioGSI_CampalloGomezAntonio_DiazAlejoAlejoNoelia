@@ -639,11 +639,12 @@ class InterfazAplicacion:
             nombre = self.txtNombreRegistro.get()
             apellido = self.txtApellidoRegistro.get()
             dni = self.txtDNIRegistro.get()
+            dniMAYUS = dni[:-1] + dni[-1].upper()
             telefono = self.txtTelefonoRegistro.get()
             registro = Registro()
 
             # Verificar si algún campo está vacío
-            if not (usuario and contrasena and nombre and apellido and dni and telefono):
+            if not (usuario and contrasena and nombre and apellido and dniMAYUS and telefono):
                 messagebox.showerror("Campos incompletos", "Debes completar todos los campos")
                 return
             
@@ -658,7 +659,7 @@ class InterfazAplicacion:
                 return
             
             # Validar longitud del DNI y que contenga 8 dígitos y una letra
-            if len(dni) != 9 or not dni[:-1].isdigit() or not dni[-1].isalpha():
+            if len(dniMAYUS) != 9 or not dniMAYUS[:-1].isdigit() or not dniMAYUS[-1].isalpha():
                 messagebox.showerror("Error", "El DNI debe tener 8 dígitos seguidos de una letra")
                 return
 
@@ -667,7 +668,7 @@ class InterfazAplicacion:
                 messagebox.showerror("Error", "El número de teléfono debe tener 9 dígitos")
                 return
             
-            exito, mensaje = registro.registrar_usuario(dni, usuario, contrasena, nombre, apellido, telefono)
+            exito, mensaje = registro.registrar_usuario(dniMAYUS, usuario, contrasena, nombre, apellido, telefono)
             if exito:
                 messagebox.showinfo("Registro exitoso", mensaje)
                 self.initMenuLogin()
@@ -841,7 +842,7 @@ class InterfazAplicacion:
         elements.append(Spacer(1, 12))
 
         # Definir el texto base a escribir en el PDF
-        texto_base = f"La recomendación con mayor valor es: {max_valor} en la categoría {max_categoria}"
+        texto_base = f"La recomendación con mayor valor es: {round(max_valor,2)} en la categoría {max_categoria}"
         elements.append(Paragraph(texto_base, style=styles["Normal"]))
         elements.append(Spacer(1, 12))
 
