@@ -761,13 +761,13 @@ class InterfazAplicacion:
             self.initMenuPerfil()
             perfil = Perfil()
             notas_computacion, notas_computadores, notas_ing_software, notas_ti = self.obtenerNotas()
-            recomendacion = perfil.obtener_recomendaciones(self.txtLogin.get(), notas_computacion, notas_computadores, notas_ing_software, notas_ti)
+            recomendacion, mensaje = perfil.obtener_recomendaciones(self.txtLogin.get(), notas_computacion, notas_computadores, notas_ing_software, notas_ti)
             
             # Verificar si todas las recomendaciones son 0
-            if sum(recomendacion.values()) == 0:
-                messagebox.showinfo("Sin recomendaciones", "Lo sentimos, no se encontraron recomendaciones para ti.")
+            if recomendacion == 0:
                 return
-
+            elif recomendacion == -1:
+                messagebox.showerror("Fallo al obtener recomendaciones.", mensaje)
             # Inicializar variables para el máximo valor y su categoría
             max_valor = None
             max_categoria = None

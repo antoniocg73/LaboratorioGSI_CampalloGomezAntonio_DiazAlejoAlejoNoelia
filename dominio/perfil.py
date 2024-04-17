@@ -127,18 +127,21 @@ class Perfil:
             dni = self.obtener_dni(usuario)
             # Buscar en la base de datos las recomendaciones del usuario
             gustos = self.obtener_gustos(usuario)
+            if len(gustos) == 0:
+                return 0, "No se han encontrado los gustos del usuario."
             opciones_gustos = self.obtener_opciones_gustos(gustos)
             puntajes_notas = self.obtener_puntajes_notas(notasComputacion, notasComputadores, notasISO, notasTI)
+            if sum(puntajes_notas.values()) == 0:
+                return 0, "No se han encontrado las notas del usuario."
             puntajes_gustos = self.obtener_puntajes_gustos(opciones_gustos)
 
             puntaje_final = {}
             for key in puntajes_notas:
                 puntaje_final[key] = puntajes_notas[key]*0.4 + puntajes_gustos[key]*0.6
 
-            return puntaje_final
+            return puntaje_final, "Obtención de recomendación realizada con éxito"
         except Exception as e:
-            print("Error al obtener las recomendaciones del usuario:", e)
-            return None
+            return -1,"Error al obtener las recomendaciones del usuario:"
         finally:
             self.conn.close()
 
